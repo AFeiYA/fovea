@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Eye, Cpu, Terminal } from "lucide-react";
+import { Eye, Cpu, Terminal, Sparkles, Layers, CheckCircle2 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 export const AboutView: React.FC = () => {
@@ -14,13 +14,101 @@ export const AboutView: React.FC = () => {
       <div className="border-l-3 border-amber-500 pl-4 py-1">
         <blockquote className="text-lg sm:text-xl font-medium text-[var(--text-main)] tracking-tight">
           {isZh
-            ? "“泛 AI 喧嚣中，99% 皆是噪点。Fovea 聚焦那 1% 真正改变智能形态的质变。”"
-            : "“Not everything that happens in AI matters. Fovea tracks what might.”"}
+            ? "“智能观测智能之演进——亦包括其自身。”"
+            : "“Fovea watches intelligence evolve — including its own.”"}
         </blockquote>
         <p className="text-xs font-mono text-[var(--text-dim)] mt-2 uppercase tracking-wider">
-          {isZh ? "— FOVEA 编辑部立足基点" : "— The Fovea Editorial Stance"}
+          {isZh ? "— FOVEA 自主演进宣言" : "— The Fovea Autonomous Evolution Manifesto"}
         </p>
       </div>
+
+      {/* The 4-Level Autonomy Roadmap */}
+      <section className="space-y-4 p-6 sm:p-7 rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] shadow-xs">
+        <div className="flex items-center space-x-2 text-amber-500 font-mono text-xs uppercase tracking-wider">
+          <Layers size={15} />
+          <span>{isZh ? "自主演进架构" : "The 4 Levels of Autonomy"}</span>
+        </div>
+        <h2 className="text-xl font-bold text-[var(--text-main)] tracking-tight">
+          {isZh ? "Fovea 的 4 阶自主演化阶梯" : "The Fovea Self-Improvement Roadmap"}
+        </h2>
+        <p className="text-sm text-[var(--text-muted)]">
+          {isZh
+            ? "单纯依靠 AI 抓取与摘要并不是超智能。真正的 SI 味道，在于系统能基于结果持续改进自身。Fovea 正在按四级阶梯逐步交出人类干预权："
+            : "AI auto-generation alone is not Superintelligence. Genuine SI begins when a system continuously modifies its own operating parameters and code based on observed outcomes. Fovea is progressing across four distinct autonomy phases:"}
+        </p>
+
+        <div className="space-y-3 pt-2">
+          {/* Level 1 */}
+          <div className="p-3.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)]">
+            <div className="flex items-center justify-between text-xs font-mono mb-1">
+              <span className="font-bold text-[var(--text-main)]">
+                LEVEL 1 — AI-ASSISTED
+              </span>
+              <span className="text-emerald-500 flex items-center space-x-1">
+                <CheckCircle2 size={12} />
+                <span>{isZh ? "已完成" : "Completed"}</span>
+              </span>
+            </div>
+            <p className="text-xs text-[var(--text-muted)]">
+              {isZh
+                ? "AI 自动抓取前沿、去重、提炼 Why-it-matters 并打分，人类作为终审发布门禁。"
+                : "AI aggregates frontier feeds, deduplicates, synthesizes Why-it-matters; human executes final approval."}
+            </p>
+          </div>
+
+          {/* Level 2 */}
+          <div className="p-3.5 rounded-lg border-2 border-amber-500/60 bg-amber-500/5">
+            <div className="flex items-center justify-between text-xs font-mono mb-1">
+              <span className="font-bold text-amber-500 flex items-center space-x-1.5">
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                <span>LEVEL 2 — AI-OPERATED</span>
+              </span>
+              <span className="text-amber-500 font-semibold text-[11px]">
+                {isZh ? "当前运行版本" : "Active Deployment"}
+              </span>
+            </div>
+            <p className="text-xs text-[var(--text-main)]">
+              {isZh
+                ? "由 GitHub Actions 驱动的多源自动雷达：全天候扫描 arXiv、OpenAI、HackerNews，自动过滤注入、提炼双语信号并通过 GitOps 自动提交部署。零手动维护。"
+                : "Automated multi-source radar: scans arXiv, lab announcements, and compute disclosures, filters injections, generates bilingual signals, and auto-deploys via GitOps. Zero manual overhead."}
+            </p>
+          </div>
+
+          {/* Level 3 */}
+          <div className="p-3.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] opacity-85">
+            <div className="flex items-center justify-between text-xs font-mono mb-1">
+              <span className="font-bold text-[var(--text-dim)]">
+                LEVEL 3 — SELF-OPTIMIZING FOVEA
+              </span>
+              <span className="text-zinc-500 text-[11px] font-mono">
+                {isZh ? "规划中" : "In Design"}
+              </span>
+            </div>
+            <p className="text-xs text-[var(--text-muted)]">
+              {isZh
+                ? "闭环自调优：系统根据读者驻留时长、历史信号长期准确率回测，自动调整信源权重表、分类体系与 Prompt 策略。"
+                : "Closed feedback loop: agent monitors signal predictive accuracy over 3-6 months, automatically adjusting source reliability weights, ranking policies, and prompt formulations."}
+            </p>
+          </div>
+
+          {/* Level 4 */}
+          <div className="p-3.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] opacity-85">
+            <div className="flex items-center justify-between text-xs font-mono mb-1">
+              <span className="font-bold text-[var(--text-dim)]">
+                LEVEL 4 — RECURSIVE SELF-IMPROVEMENT
+              </span>
+              <span className="text-zinc-500 text-[11px] font-mono">
+                {isZh ? "终极目标" : "Ultimate Vision"}
+              </span>
+            </div>
+            <p className="text-xs text-[var(--text-muted)]">
+              {isZh
+                ? "递归自我重构实验：Agent 诊断自身去重与评价算法缺陷，自动建立 GitHub 分支改写代码、跑回测验证基准，通过后自动提 PR 并合并部署上线。"
+                : "Recursive self-improvement: Agent identifies algorithmic bottlenecks in its own codebase, writes patches, runs backtests, and merges validated PRs autonomously."}
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* The Metaphor: The Fovea */}
       <section className="space-y-3">
@@ -64,17 +152,6 @@ export const AboutView: React.FC = () => {
         <h2 className="text-xl font-bold text-[var(--text-main)] tracking-tight">
           {isZh ? "为什么是「SI」，而非「AI」？" : "Why “SI”, Not “AI”?"}
         </h2>
-        <p className="text-sm sm:text-base text-[var(--text-muted)]">
-          {isZh ? (
-            <>
-              这一命名的直接灵感来源于当下全球顶层决策与技术前沿的共同觉醒：传统的“人工智能（Artificial Intelligence）”已远远不足以定义现在的烈度。
-            </>
-          ) : (
-            <>
-              The inspiration stems from an increasingly prevalent realization—recently highlighted across geopolitical and technical arenas—that the term “Artificial Intelligence” has been outgrown.
-            </>
-          )}
-        </p>
         <p className="text-sm sm:text-base text-[var(--text-muted)]">
           {isZh ? (
             <>
@@ -149,8 +226,8 @@ export const AboutView: React.FC = () => {
             </h3>
             <p className="text-xs text-[var(--text-muted)]">
               {isZh
-                ? "我们全天候扫描全球前沿实验室公告、arXiv 预印本、政府政策立项、电网排队报告与底层芯片硬件发布，但每天只筛选极少数真正有价值的信号。"
-                : "We monitor lab disclosures, arXiv preprints, government regulatory filings, grid interconnection requests, and hardware architecture drops. But we only publish what genuinely matters."}
+                ? "多源智能体每日扫描 arXiv 顶刊、前沿实验室公告与底层芯片硬件发布，严格筛选 1% 真正改变智能形态的质变。"
+                : "Multi-source agents scan arXiv papers, lab disclosures, and hardware architectures daily, filtering for the 1% paradigm shifts."}
             </p>
           </div>
 
@@ -163,20 +240,7 @@ export const AboutView: React.FC = () => {
             <p className="text-xs text-[var(--text-muted)]">
               {isZh
                 ? "每一条入选内容，都必须给出清晰有力的论断：它到底如何改变或加速了超智能的演进？如果给不出，坚决不发。"
-                : "Every item on Fovea includes a clear structural synthesis: how does this advance or redirect the trajectory towards Superintelligence? If there is no clear answer, it does not get published."}
-            </p>
-          </div>
-
-          <div className="p-4 rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)]">
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
-              {isZh
-                ? "3. 拒绝无脑自动化，坚持人工终审"
-                : "3. Human curation over automated noise."}
-            </h3>
-            <p className="text-xs text-[var(--text-muted)]">
-              {isZh
-                ? "AI 负责广谱雷达扫描与预提炼，但发布在 fovea.si 上的每一条内容，均经由人类主编亲自把关与审定，绝不做泛滥的垃圾自动站。"
-                : "While AI helps index and summarize signals across the web, every single item published on fovea.si is personally reviewed and confirmed. No unchecked firehoses."}
+                : "Every item on Fovea includes a clear structural synthesis: how does this advance or redirect the trajectory towards Superintelligence?"}
             </p>
           </div>
         </div>

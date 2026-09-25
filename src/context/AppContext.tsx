@@ -16,16 +16,16 @@ const DICTIONARY: Record<string, { en: string; zh: string }> = {
   // Brand
   siteName: { en: "FOVEA.SI", zh: "FOVEA.SI" },
   subtitle: {
-    en: "Superintelligence, in focus.",
-    zh: "聚焦超智能核心视界。",
+    en: "Superintelligence, observed by intelligence.",
+    zh: "后 AI 时代的高分辨率自主透镜。",
   },
   motto: {
-    en: "Not everything that happens in AI matters. Fovea tracks what might.",
-    zh: "泛 AI 喧嚣中，99% 皆是噪点。Fovea 聚焦那 1% 真正改变智能形态的质变。",
+    en: "Fovea watches intelligence evolve — including its own.",
+    zh: "智能观测智能之演进——亦包括其自身。",
   },
   radarActive: {
-    en: "Foveal Radar: Active",
-    zh: "超智能视界雷达：运行中",
+    en: "Autonomous Pipeline: Level 2 (AI-Operated)",
+    zh: "自主流水线：Level 2（AI 自治运行）",
   },
   signalsIndexed: {
     en: "signals indexed",
@@ -36,7 +36,7 @@ const DICTIONARY: Record<string, { en: string; zh: string }> = {
   navLatest: { en: "Latest", zh: "最新前沿" },
   navSignals: { en: "Signals", zh: "范式突变" },
   navWeekly: { en: "Weekly", zh: "每周精选" },
-  navAbout: { en: "About", zh: "关于 / 宣言" },
+  navAbout: { en: "About", zh: "关于 / 自主路线" },
 
   // Search & Filters
   searchPlaceholder: {
@@ -96,8 +96,8 @@ const DICTIONARY: Record<string, { en: string; zh: string }> = {
 
   // Footer
   footerVision: {
-    en: "The focal point of the post-AI era.",
-    zh: "后 AI 时代的高分辨率思想透镜。",
+    en: "An autonomous lens on Superintelligence.",
+    zh: "智能观测智能之演进——亦包括其自身。",
   },
   footerSubmit: { en: "Submit Signal", zh: "提供线索" },
   footerRss: { en: "RSS Feed", zh: "RSS 订阅" },
@@ -115,26 +115,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [language, setLanguage] = useState<Language>("zh");
 
-  // Initialize theme & language from storage
   useEffect(() => {
-    // Theme setup
     const savedTheme = localStorage.getItem("fovea_theme") as "dark" | "light" | null;
     if (savedTheme) {
       setTheme(savedTheme);
       applyTheme(savedTheme);
     } else {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme = prefersDark ? "dark" : "dark"; // default dark
+      const initialTheme = prefersDark ? "dark" : "dark";
       setTheme(initialTheme);
       applyTheme(initialTheme);
     }
 
-    // Language setup
     const savedLang = localStorage.getItem("fovea_lang") as Language | null;
     if (savedLang === "en" || savedLang === "zh") {
       setLanguage(savedLang);
     } else {
-      // Check browser language
       const isChinese = navigator.language.toLowerCase().startsWith("zh");
       setLanguage(isChinese ? "zh" : "en");
     }
