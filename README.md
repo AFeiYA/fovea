@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FOVEA.SI
 
-## Getting Started
+> **Superintelligence, in focus.**  
+> *Not everything that happens in AI matters. Fovea tracks what might.*
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 👁️ What is FOVEA.SI?
+
+**FOVEA.SI** is a curated intelligence radar tracking the historic transition from conventional "AI" (software productivity tools and autocomplete) to **Super Intelligence (SI)** (autonomous self-correcting cognition, gigawatt-scale energy constraints, wafer-scale clusters, and sovereign computational power).
+
+Inspired by the biological **Fovea Centralis**—the tiny 1.5mm focal zone of the human retina that produces 99% of visual acuity while ignoring peripheral blur—**Fovea filters out 99% of AI noise to deliver the 1% structural paradigm shifts.**
+
+---
+
+## ⚡ Core Features (MVP)
+
+1. **Latest Feed (Today / Yesterday / Archive)**:
+   - Concise 1-sentence news summary.
+   - **Why it matters**: Dedicated high-contrast synthesis explaining why this advances or redirects the path to Superintelligence.
+   - Tags: `REASONING`, `COMPUTE`, `ENERGY`, `MODELS`, `GOVERNANCE`, `INFRASTRUCTURE`.
+2. **🔴 Signal Highlighting**:
+   - Distinctive badge and pulse for genuine paradigm shifts.
+3. **Weekly Synthesis**:
+   - Numbered top 5–10 critical pivot points of the week.
+4. **About & Manifesto**:
+   - The distinction between AI and SI, the biological metaphor, and editorial standards.
+5. **Newsletter Box**:
+   - Frictionless subscription for weekly Sunday digests.
+6. **Dark / Light Theme**:
+   - Default dark scientific minimalism with one-click toggle.
+
+---
+
+## 🛠️ Daily Workflow for Solo Maintainer
+
+To prevent burnout and maintain highest signal quality:
+
+```text
+Information Inflow (Labs, arXiv, Grid announcements, Hardware releases)
+                        ↓
+            Pre-filtered & summarized
+                        ↓
+          🧑‍💻 Human Editor Review (You)
+             Pick 3–5 items per day
+                        ↓
+             Published to fovea.si
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Install dependencies
+```bash
+npm install
+```
 
-## Learn More
+### 2. Run locally
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Production Build
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🌐 Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy in 1-click to **Vercel** or **Cloudflare Pages**:
+- Build command: `npm run build`
+- Output directory: `.next`
