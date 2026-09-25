@@ -14,7 +14,7 @@ export const AboutView: React.FC = () => {
       <div className="border-l-3 border-amber-500 pl-4 py-1">
         <blockquote className="text-lg sm:text-xl font-medium text-[var(--text-main)] tracking-tight">
           {isZh
-            ? "“泛 AI 喧嚣中，99% 皆是噪点。Fovea 聚焦那 1% 真正改变智能形态的质变。”"
+            ? "“并非 AI 领域发生的一切都重要。Fovea 只追踪那些可能改变未来的事物。”"
             : "“Not everything that happens in AI matters. Fovea tracks what might.”"}
         </blockquote>
         <p className="text-xs font-mono text-[var(--text-dim)] mt-2 uppercase tracking-wider">

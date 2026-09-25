@@ -21,7 +21,7 @@ const DICTIONARY: Record<string, { en: string; zh: string }> = {
   },
   motto: {
     en: "Not everything that happens in AI matters. Fovea tracks what might.",
-    zh: "泛 AI 喧嚣中，99% 皆是噪点。Fovea 聚焦那 1% 真正改变智能形态的质变。",
+    zh: "并非 AI 领域发生的一切都重要。Fovea 只追踪那些可能改变未来的事物。",
   },
   radarActive: {
     en: "Foveal Radar: Active",
