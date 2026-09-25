@@ -2,6 +2,7 @@
 
 import React from "react";
 import { TagType } from "@/types/signal";
+import { useApp } from "@/context/AppContext";
 
 interface TagFilterProps {
   selectedTag: TagType | "ALL";
@@ -24,6 +25,8 @@ export const TagFilter: React.FC<TagFilterProps> = ({
   onSelectTag,
   tagCounts,
 }) => {
+  const { t } = useApp();
+
   return (
     <div className="flex items-center space-x-1.5 overflow-x-auto py-2 scrollbar-none no-scrollbar">
       {TAG_ORDER.map((tag) => {
@@ -34,18 +37,18 @@ export const TagFilter: React.FC<TagFilterProps> = ({
           <button
             key={tag}
             onClick={() => onSelectTag(tag)}
-            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded text-[11px] font-mono tracking-wider transition-all whitespace-nowrap border ${
+            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded text-[11px] font-mono tracking-wider transition-all whitespace-nowrap border shadow-xs ${
               isSelected
-                ? "bg-zinc-100 text-zinc-950 font-semibold border-zinc-100 shadow"
-                : "bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 border-zinc-800/80 hover:border-zinc-700"
+                ? "bg-[var(--text-main)] text-[var(--bg-page)] font-bold border-[var(--text-main)]"
+                : "bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-[var(--text-main)] border-[var(--border-card)] hover:border-[var(--border-strong)]"
             }`}
           >
-            <span>{tag}</span>
+            <span>{t(`tag_${tag}`)}</span>
             <span
               className={`text-[10px] px-1 py-0.2 rounded-full ${
                 isSelected
-                  ? "bg-zinc-300 text-zinc-900"
-                  : "bg-zinc-800 text-zinc-500"
+                  ? "bg-[var(--bg-page)] text-[var(--text-main)] font-semibold"
+                  : "bg-[var(--bg-subtle)] text-[var(--text-dim)]"
               }`}
             >
               {count}
