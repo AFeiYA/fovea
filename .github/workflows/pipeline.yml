@@ -1,0 +1,49 @@
+name: Autonomous Ingestion Pipeline
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Run at 06:00 UTC daily
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+permissions:
+  contents: write # Needed to push commits back to the repo
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history so we can commit back
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Autonomous Pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: npm run pipeline
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # Check if there are any changes in src/data/signals.ts
+          if git diff --quiet src/data/signals.ts; then
+            echo "No new signals synthesized today. Nothing to commit."
+          else
+            git add src/data/signals.ts
+            git commit -m "🤖 auto: synthesize daily signals [skip ci]"
+            git push
+            echo "Successfully pushed new signals."
+          fi
