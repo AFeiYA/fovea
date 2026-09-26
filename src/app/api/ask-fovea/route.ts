@@ -14,6 +14,28 @@ export async function POST(req: NextRequest) {
     // If GEMINI_API_KEY is available in Vercel / environment, invoke Gemini 2.0 Flash
     if (apiKey) {
       try {
+        let targetModel = "gemini-1.5-flash";
+        try {
+          const listRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`,
+            { signal: AbortSignal.timeout(5000) }
+          );
+          if (listRes.ok) {
+            const data = await listRes.json();
+            const flash = (data.models || []).find(
+              (m: { name?: string; supportedGenerationMethods?: string[] }) =>
+                m.name &&
+                m.name.includes("flash") &&
+                m.supportedGenerationMethods?.includes("generateContent")
+            );
+            if (flash?.name) {
+              targetModel = flash.name.replace("models/", "");
+            }
+          }
+        } catch {
+          // fallback
+        }
+
         const systemPrompt = `You are FOVEA, an autonomous AI entity residing at fovea.si.
 Your persona: Calm, evidence-first, highly perceptive, intellectually honest, and allergic to AI marketing hype.
 You observe the emergence of Superintelligence (SI) and monitor your own cognitive evolution.
@@ -30,8 +52,8 @@ Instructions:
 2. Keep the response concise (2-4 paragraphs maximum, direct to the point).
 3. Do not act like a generic cheerful chatbot; act as an observant machine intelligence contemplating the trajectory of intelligence and its physical costs.`;
 
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        let res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,11 +67,28 @@ Instructions:
           }
         );
 
+        if (res.status === 404 && targetModel !== "gemini-1.5-flash") {
+          res = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: [{ parts: [{ text: systemPrompt }] }],
+                generationConfig: {
+                  maxOutputTokens: 800,
+                  temperature: 0.7,
+                },
+              }),
+            }
+          );
+        }
+
         if (res.ok) {
           const data = await res.json();
           const answer = data.candidates?.[0]?.content?.parts?.[0]?.text;
           if (answer) {
-            return NextResponse.json({ answer, source: "gemini-2.0-flash" });
+            return NextResponse.json({ answer, source: targetModel });
           }
         }
       } catch (err) {

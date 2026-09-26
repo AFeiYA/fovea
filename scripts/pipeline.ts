@@ -117,6 +117,43 @@ function sanitizeText(input: string): string {
     .trim();
 }
 
+let cachedGeminiModel: string | null = null;
+
+async function resolveGeminiModel(apiKey: string): Promise<string> {
+  if (cachedGeminiModel) return cachedGeminiModel;
+
+  try {
+    const listRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`,
+      { signal: AbortSignal.timeout(6000) }
+    );
+    if (listRes.ok) {
+      const data = await listRes.json();
+      const models = data.models || [];
+      // Look for active flash models supporting generateContent
+      const flash = models.find(
+        (m: { name?: string; supportedGenerationMethods?: string[] }) =>
+          m.name &&
+          m.name.includes("flash") &&
+          Array.isArray(m.supportedGenerationMethods) &&
+          m.supportedGenerationMethods.includes("generateContent")
+      );
+      if (flash && flash.name) {
+        const modelId = flash.name.replace("models/", "");
+        console.log(`🤖 Auto-discovered active Gemini model: "${modelId}"`);
+        cachedGeminiModel = modelId;
+        return modelId;
+      }
+    }
+  } catch (err) {
+    // ignore
+  }
+
+  // Default fallback to gemini-3.8-flash or gemini-1.5-flash
+  cachedGeminiModel = "gemini-3.8-flash";
+  return cachedGeminiModel;
+}
+
 // 3. Evaluation & Synthesis (LLM with Heuristic Fallback)
 async function evaluateAndSynthesize(
   candidate: RawCandidate,
@@ -129,7 +166,8 @@ async function evaluateAndSynthesize(
   // If Gemini API Key is present, call Gemini
   if (apiKey && provider === "gemini") {
     try {
-      console.log(`🧠 Synthesizing via Gemini 2.0 Flash: "${cleanTitle}"...`);
+      const targetModel = await resolveGeminiModel(apiKey);
+      console.log(`🧠 Synthesizing via ${targetModel}: "${cleanTitle}"...`);
       const prompt = `You are the lead evaluator for FOVEA.SI, an elite publication tracking the emergence of Superintelligence (SI) rather than generic AI tools.
 Filter out shallow tool announcements, wrappers, or minor marketing updates.
 Focus strictly on:
@@ -157,8 +195,8 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
   "whyItMattersZh": "一针见血剖析为什么这对通往超智能具有根本性结构意义"
 }`;
 
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      let res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -168,6 +206,22 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
           }),
         }
       );
+
+      // If 404, fallback to gemini-1.5-flash
+      if (res.status === 404 && targetModel !== "gemini-1.5-flash") {
+        console.warn(`⚠️  ${targetModel} returned 404, trying fallback: gemini-1.5-flash...`);
+        res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { responseMimeType: "application/json" },
+            }),
+          }
+        );
+      }
 
       if (res.ok) {
         const data = await res.json();
