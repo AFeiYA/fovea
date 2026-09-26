@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,31 +12,10 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.GEMINI_API_KEY;
     const isZh = language === "zh";
 
-    // If GEMINI_API_KEY is available in Vercel / environment, invoke Gemini 2.0 Flash
+    // If GEMINI_API_KEY is available in Vercel / environment, invoke official @google/genai SDK
     if (apiKey) {
       try {
-        let targetModel = "gemini-1.5-flash";
-        try {
-          const listRes = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`,
-            { signal: AbortSignal.timeout(5000) }
-          );
-          if (listRes.ok) {
-            const data = await listRes.json();
-            const flash = (data.models || []).find(
-              (m: { name?: string; supportedGenerationMethods?: string[] }) =>
-                m.name &&
-                m.name.includes("flash") &&
-                m.supportedGenerationMethods?.includes("generateContent")
-            );
-            if (flash?.name) {
-              targetModel = flash.name.replace("models/", "");
-            }
-          }
-        } catch {
-          // fallback
-        }
-
+        const ai = new GoogleGenAI({ apiKey, httpOptions: { timeout: 8000 } });
         const systemPrompt = `You are FOVEA, an autonomous AI entity residing at fovea.si.
 Your persona: Calm, evidence-first, highly perceptive, intellectually honest, and allergic to AI marketing hype.
 You observe the emergence of Superintelligence (SI) and monitor your own cognitive evolution.
@@ -52,46 +32,49 @@ Instructions:
 2. Keep the response concise (2-4 paragraphs maximum, direct to the point).
 3. Do not act like a generic cheerful chatbot; act as an observant machine intelligence contemplating the trajectory of intelligence and its physical costs.`;
 
-        const candidateEndpoints = [
-          `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-          `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${apiKey}`,
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
-        ];
-
-        for (const url of candidateEndpoints) {
-          try {
-            const res = await fetch(url, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                contents: [{ parts: [{ text: systemPrompt }] }],
-                generationConfig: {
-                  maxOutputTokens: 800,
-                  temperature: 0.7,
-                },
-              }),
-            });
-
-            if (res.ok) {
-              const data = await res.json();
-              const answer = data.candidates?.[0]?.content?.parts?.[0]?.text;
-              if (answer) {
-                return NextResponse.json({ answer, source: "gemini" });
-              }
-            }
-          } catch {
-            // try next endpoint
+        // 1. Try official ai.interactions.create with gemini-3.8-flash
+        try {
+          const interaction = await ai.interactions.create({
+            model: "gemini-3.8-flash",
+            input: systemPrompt,
+          });
+          if (interaction.output_text) {
+            return NextResponse.json({ answer: interaction.output_text, source: "gemini-3.8-flash" });
           }
-        }
+        } catch {}
 
-        if (res.ok) {
-          const data = await res.json();
-          const answer = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (answer) {
-            return NextResponse.json({ answer, source: targetModel });
+        // 2. Try ai.models.generateContent with gemini-3.8-flash
+        try {
+          const resp = await ai.models.generateContent({
+            model: "gemini-3.8-flash",
+            contents: systemPrompt,
+          });
+          if (resp.text) {
+            return NextResponse.json({ answer: resp.text, source: "gemini-3.8-flash" });
           }
-        }
+        } catch {}
+
+        // 3. Fallback to gemini-3.5-flash-lite (When 3.8 quota is exhausted)
+        try {
+          const resp = await ai.models.generateContent({
+            model: "gemini-3.5-flash-lite",
+            contents: systemPrompt,
+          });
+          if (resp.text) {
+            return NextResponse.json({ answer: resp.text, source: "gemini-3.5-flash-lite" });
+          }
+        } catch {}
+
+        // 4. Fallback to gemini-1.5-flash
+        try {
+          const resp = await ai.models.generateContent({
+            model: "gemini-1.5-flash",
+            contents: systemPrompt,
+          });
+          if (resp.text) {
+            return NextResponse.json({ answer: resp.text, source: "gemini-1.5-flash" });
+          }
+        } catch {}
       } catch (err) {
         console.warn("Gemini API call failed, falling back to local analysis:", (err as Error).message);
       }

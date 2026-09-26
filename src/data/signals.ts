@@ -2,21 +2,88 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1790442721767-hgwu",
+    "title": "Jev: Zero-Shot Calibration Reinforcement Learning for AI Alignment Failure Detection",
+    "titleZh": "Jev：基于强化学习与校准决策的零样本AI对齐失效检测器",
+    "summary": "Jev uses reinforcement learning for calibrated decisions (RLCD) to dynamically evaluate multiple typed queries and act as a zero-shot detector of model alignment failures.",
+    "summaryZh": "Jev 采用面向校准决策的强化学习（RLCD），通过处理多种类型的查询，实现对模型对齐失效的零样本动态检测。",
+    "whyItMatters": "Robust self-monitoring and alignment failure detection are critical foundational safeguards as systems scale toward recursive self-improvement and superintelligence.",
+    "whyItMattersZh": "随着系统向递归自我改进和超智能演进，强大的自我监控和对齐失效检测是不可或缺的基础安全保障。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2609.29429",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-09-26T17:12:01.767Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
+    "id": "sig-1790442721768-jvko",
+    "title": "Emergence of Parts-of-Speech Categories in Sparse AutoEncoder Latent Space",
+    "titleZh": "稀疏自编码器（SAE）潜空间中词性类别的涌现",
+    "summary": "This research investigates how morpho-syntactic information and parts-of-speech categories are structurally encoded by individual latents or feature groups within Sparse AutoEncoders.",
+    "summaryZh": "该研究探讨了形态句法信息和词性类别如何在稀疏自编码器的单个潜在变量或特征群组中进行结构化编码。",
+    "whyItMatters": "Interpreting internal representations via mechanistic interpretability is vital for unlocking the inner workings of frontier models and ensuring predictable control before SI transition.",
+    "whyItMattersZh": "通过机械可解释性解析内部表征，对于揭示前沿模型内部运作机制以及在实现超智能转型前确保可控性至关重要。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2609.29362",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-09-26T17:12:01.768Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
+    "id": "sig-1790439805622-22nh",
+    "title": "Sam Altman Addresses UN Security Council on Global AI Governance and Human Agency",
+    "titleZh": "奥特曼联合国安理会发言：呼吁建立前沿AI国际协作监管",
+    "summary": "OpenAI CEO Sam Altman urged the UN Security Council to establish international oversight mechanisms and preserve human control over frontier AI systems.",
+    "summaryZh": "OpenAI首席执行官山姆·奥特曼在联合国安理会发表讲话，呼吁建立前沿AI国际监管机制并确保人类控制权。",
+    "whyItMatters": "While elevating frontier risk to the UN Security Council reflects the growing geopolitical stakes of superintelligence, the remarks remain high-level diplomatic rhetoric without binding non-proliferation or compute-monitoring treaties.",
+    "whyItMattersZh": "虽然将前沿模型安全推向安理会反映了超智能上升至最高地缘政治层面，但在缺乏算力追踪或实质性不扩散条约约束机制的前提下，该发言仍属于高规格的政策游说与外交表态。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/sam-altman-un-security-council-remarks",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-09-26T16:23:25.622Z",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
+    "isSignal": false,
+    "tags": [
+      "GOVERNANCE"
+    ],
+    "weeklyPick": false
+  },
+  {
     "id": "sig-1790420601134-at7d",
-    "title": "Learning to Discover Interesting Mathematics",
-    "titleZh": "Learning to Discover Interesting Mathematics",
-    "summary": "Recently, Large Language Models (LLMs) have been increasingly able to solve advanced mathematical problems, including many that have been open for decades. This...",
-    "summaryZh": "Recently, Large Language Models (LLMs) have been increasingly able to solve advanced mathematical problems, including many that have been op...",
-    "whyItMatters": "Advances core constraints on the trajectory toward Superintelligence across physical compute and autonomous reasoning boundaries.",
-    "whyItMattersZh": "在前沿算力扩张与自主推理边界上跨出了关键一步，直接触及超智能演进的核心约束。",
+    "title": "From Problem-Solving to Conjecture: AI Learns to Quantify Mathematical Value",
+    "titleZh": "从解题到猜想：AI破局自律性数学价值发现",
+    "summary": "Researchers propose a framework enabling models to autonomously discover novel and mathematically significant conjectures rather than merely solving human-posed problems.",
+    "summaryZh": "该研究提出了使模型能够自主发现具重要数学价值的新猜想框架，推动AI从被动解题转向主动假说生成。",
+    "whyItMatters": "Superintelligence cannot rely indefinitely on human-generated ground truth; formal discovery requires models to learn intrinsic measures of 'interest' and novelty, unlocking closed-loop synthetic data generation and autonomous scientific discovery.",
+    "whyItMattersZh": "超智能无法永远依赖人类标注的真值标准；数学发现的核心瓶颈在于如何定义与量化‘有价值的研究方向’，此研究标志着自弈闭环从已知题库推演迈向未知科学假设的自主生成。",
     "source": {
       "name": "arXiv / HuggingFace",
       "url": "https://arxiv.org/abs/2609.28603",
       "domain": "arxiv.org"
     },
     "timestamp": "2026-09-26T11:03:21.134Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING"
