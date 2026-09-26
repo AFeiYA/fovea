@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sun, Moon, Languages } from "lucide-react";
+import { Sun, Moon, Languages, Eye, Sparkles } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 interface HeaderProps {
@@ -18,31 +18,31 @@ export const Header: React.FC<HeaderProps> = ({
   const { theme, toggleTheme, language, toggleLanguage, t } = useApp();
 
   return (
-    <header className="fovea-header border-b backdrop-blur-md sticky top-0 z-50 transition-colors">
+    <header className="fovea-header border-b backdrop-blur-md sticky top-0 z-40 transition-colors">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
         {/* Top Status Bar & Controls */}
-        <div className="flex items-center justify-between text-xs font-mono mb-3">
-          {/* Radar Status (Clickable to view roadmap) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono mb-3 gap-2">
+          {/* Fovea's Sensory Observation State (Clickable to view roadmap & anatomy) */}
           <button
             onClick={() => setActiveTab("about")}
-            className="flex items-center space-x-2 text-left group hover:opacity-80 transition-opacity cursor-pointer"
-            title={language === "zh" ? "点击查看系统 4 阶自主演化路线图" : "Click to view 4-Level Autonomy Roadmap"}
+            className="flex items-center space-x-2 text-left group hover:opacity-90 transition-opacity cursor-pointer flex-wrap"
+            title={language === "zh" ? "点击查看 Fovea 认知解剖图与自演化路线图" : "Click to view Fovea's Cognitive Anatomy & Autonomy Roadmap"}
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span className="relative flex h-2 w-2 flex-shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
             </span>
-            <span className="tracking-wider uppercase text-[var(--text-muted)] group-hover:text-amber-500 transition-colors">
-              {t("radarActive")}
+            <span className="tracking-wider uppercase font-semibold text-[var(--text-main)] group-hover:text-amber-500 transition-colors">
+              {t("observerStatus")}
             </span>
             <span className="text-[var(--border-strong)]">·</span>
             <span className="text-[var(--text-dim)]">
-              {signalCount} {t("signalsIndexed")}
+              {t("observerMetrics")}
             </span>
           </button>
 
           {/* Language & Theme Controls */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 self-end sm:self-auto">
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}

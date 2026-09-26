@@ -8,6 +8,8 @@ import { TagFilter } from "@/components/TagFilter";
 import { SignalCard } from "@/components/SignalCard";
 import { WeeklyView } from "@/components/WeeklyView";
 import { AboutView } from "@/components/AboutView";
+import { ObserverBriefing } from "@/components/ObserverBriefing";
+import { AskFoveaModal } from "@/components/AskFoveaModal";
 import { NewsletterBanner } from "@/components/NewsletterBanner";
 import { Footer } from "@/components/Footer";
 import { useApp } from "@/context/AppContext";
@@ -94,6 +96,11 @@ export default function Home() {
         {/* Main Feed Content (Latest & Signals) */}
         {(activeTab === "latest" || activeTab === "signals") && (
           <div className="space-y-6">
+            {/* Observer's Macro Briefing (Pinned note at the top of Latest) */}
+            {activeTab === "latest" && !searchQuery && selectedTag === "ALL" && (
+              <ObserverBriefing />
+            )}
+
             {/* Search & Tag Filter Bar */}
             <div className="space-y-3 pb-3 border-b border-[var(--border-card)]">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
@@ -198,6 +205,9 @@ export default function Home() {
         {/* About / Manifesto View */}
         {activeTab === "about" && <AboutView />}
       </main>
+
+      {/* Global Interactive Ask Fovea Modal */}
+      <AskFoveaModal />
 
       <Footer />
     </div>

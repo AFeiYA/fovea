@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { SignalItem } from "@/types/signal";
-import { ExternalLink, Check, Share2, Compass } from "lucide-react";
+import { ExternalLink, Check, Share2, Compass, MessageSquareQuote, Eye } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 interface SignalCardProps {
@@ -12,7 +12,7 @@ interface SignalCardProps {
 
 export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick }) => {
   const [copied, setCopied] = useState(false);
-  const { language, t } = useApp();
+  const { language, t, openAskFovea } = useApp();
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
@@ -72,6 +72,18 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick }) => {
 
           <span className="text-[var(--border-strong)]">·</span>
 
+          {/* Ask Fovea Quick Trigger */}
+          <button
+            onClick={() => openAskFovea(item)}
+            className="flex items-center space-x-1 px-2 py-0.5 rounded bg-[var(--bg-subtle)] hover:bg-[var(--border-card)] text-amber-500 hover:text-amber-400 font-mono text-[10px] font-medium transition-colors border border-amber-500/30 shadow-2xs"
+            title="Ask Fovea directly about this signal"
+          >
+            <MessageSquareQuote size={11} />
+            <span>{t("askFovea")}</span>
+          </button>
+
+          <span className="text-[var(--border-strong)]">·</span>
+
           <button
             onClick={handleCopyLink}
             className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors p-1"
@@ -99,13 +111,24 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick }) => {
         {summary}
       </p>
 
-      {/* "Why it matters" Block - The Heart of FOVEA */}
+      {/* "FOVEA'S VIEW" Persona Callout Block */}
       <div className="mt-4 pt-3.5 border-t border-[var(--border-card)]">
-        <div className="flex items-center space-x-1.5 text-xs font-mono font-semibold tracking-wider text-amber-600 dark:text-amber-400 mb-1.5 uppercase">
-          <Compass size={13} />
-          <span>{t("whyItMatters")}</span>
+        <div className="flex items-center justify-between mb-1.5">
+          <div className="flex items-center space-x-1.5 text-xs font-mono font-bold tracking-wider text-amber-600 dark:text-amber-400 uppercase">
+            <Eye size={13} className="text-amber-500" />
+            <span>{t("foveasView")}</span>
+          </div>
+
+          <button
+            onClick={() => openAskFovea(item)}
+            className="text-[11px] font-mono text-[var(--text-dim)] hover:text-amber-500 transition-colors flex items-center space-x-1"
+          >
+            <span>{t("askFovea")}</span>
+            <span>→</span>
+          </button>
         </div>
-        <p className="text-xs sm:text-sm leading-relaxed fovea-why-box rounded-lg p-3 border-l-3 border font-sans">
+
+        <p className="text-xs sm:text-sm leading-relaxed fovea-why-box rounded-lg p-3.5 border-l-3 border font-sans">
           {whyItMatters}
         </p>
       </div>
