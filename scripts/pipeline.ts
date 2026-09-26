@@ -117,58 +117,64 @@ function sanitizeText(input: string): string {
     .trim();
 }
 
-let cachedGeminiModel: string | null = null;
-
-async function resolveGeminiModel(apiKey: string): Promise<string> {
-  if (cachedGeminiModel) return cachedGeminiModel;
-
-  try {
-    const listRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`,
-      { signal: AbortSignal.timeout(6000) }
-    );
-    if (listRes.ok) {
-      const data = await listRes.json();
-      const models = data.models || [];
-      // Look for active flash models supporting generateContent
-      const flash = models.find(
-        (m: { name?: string; supportedGenerationMethods?: string[] }) =>
-          m.name &&
-          m.name.includes("flash") &&
-          Array.isArray(m.supportedGenerationMethods) &&
-          m.supportedGenerationMethods.includes("generateContent")
-      );
-      if (flash && flash.name) {
-        const modelId = flash.name.replace("models/", "");
-        console.log(`🤖 Auto-discovered active Gemini model: "${modelId}"`);
-        cachedGeminiModel = modelId;
-        return modelId;
-      }
-    }
-  } catch (err) {
-    // ignore
-  }
-
-  // Default fallback to gemini-3.8-flash or gemini-1.5-flash
-  cachedGeminiModel = "gemini-3.8-flash";
-  return cachedGeminiModel;
+// 3. Robust Multi-Version Gemini API Caller
+interface GeminiCallResult {
+  text: string;
+  modelUsed: string;
 }
 
-// 3. Evaluation & Synthesis (LLM with Heuristic Fallback)
-async function evaluateAndSynthesize(
+async function callGeminiAPI(prompt: string, apiKey: string): Promise<GeminiCallResult | null> {
+  const candidateEndpoints = [
+    // 1. GA v1 endpoints (production, high-stability)
+    { url: `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, model: "gemini-1.5-flash (v1)" },
+    { url: `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${apiKey}`, model: "gemini-1.5-pro (v1)" },
+    // 2. v1beta endpoints
+    { url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, model: "gemini-1.5-flash-latest (v1beta)" },
+    { url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`, model: "gemini-2.0-flash-exp (v1beta)" },
+    { url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, model: "gemini-2.5-flash (v1beta)" },
+  ];
+
+  for (const ep of candidateEndpoints) {
+    try {
+      console.log(`🌐 Calling Gemini API via ${ep.model}...`);
+      const res = await fetch(ep.url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: "application/json" },
+        }),
+        signal: AbortSignal.timeout(10000),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          console.log(`✅ Success via ${ep.model}!`);
+          return { text, modelUsed: ep.model };
+        }
+      } else {
+        const errText = await res.text();
+        console.warn(`⚠️  ${ep.model} returned HTTP ${res.status}: ${errText.slice(0, 160)}`);
+      }
+    } catch (err) {
+      console.warn(`⚠️  ${ep.model} error: ${(err as Error).message}`);
+    }
+  }
+
+  return null;
+}
+
+// 4. Gemini Synthesis (Strict - returns null on failure, never fakes success)
+async function synthesizeWithGemini(
   candidate: RawCandidate,
-  apiKey?: string,
-  provider: "gemini" | "openai" = "gemini"
+  apiKey: string
 ): Promise<SignalItem | null> {
   const cleanTitle = sanitizeText(candidate.title);
   const cleanSummary = sanitizeText(candidate.rawSummary).slice(0, 600);
 
-  // If Gemini API Key is present, call Gemini
-  if (apiKey && provider === "gemini") {
-    try {
-      const targetModel = await resolveGeminiModel(apiKey);
-      console.log(`🧠 Synthesizing via ${targetModel}: "${cleanTitle}"...`);
-      const prompt = `You are the lead evaluator for FOVEA.SI, an elite publication tracking the emergence of Superintelligence (SI) rather than generic AI tools.
+  const prompt = `You are the lead evaluator for FOVEA.SI, an elite publication tracking the emergence of Superintelligence (SI) rather than generic AI tools.
 Filter out shallow tool announcements, wrappers, or minor marketing updates.
 Focus strictly on:
 - Autonomous reasoning, test-time compute, formal self-verification
@@ -195,76 +201,47 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
   "whyItMattersZh": "一针见血剖析为什么这对通往超智能具有根本性结构意义"
 }`;
 
-      let res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { responseMimeType: "application/json" },
-          }),
-        }
-      );
+  const result = await callGeminiAPI(prompt, apiKey);
+  if (!result) return null;
 
-      // If 404, fallback to gemini-1.5-flash
-      if (res.status === 404 && targetModel !== "gemini-1.5-flash") {
-        console.warn(`⚠️  ${targetModel} returned 404, trying fallback: gemini-1.5-flash...`);
-        res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: prompt }] }],
-              generationConfig: { responseMimeType: "application/json" },
-            }),
-          }
-        );
-      }
-
-      if (res.ok) {
-        const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) {
-          const parsed = JSON.parse(text);
-          if (!parsed.isRelevantToSI) {
-            console.log(`  └─ [Gemini Filtered]: Non-SI topic pruned.`);
-            return null;
-          }
-
-          console.log(`  └─ [Gemini Accepted]: SI-grade signal identified.`);
-          return {
-            id: `sig-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-            title: parsed.titleEn || cleanTitle,
-            titleZh: parsed.titleZh || cleanTitle,
-            summary: parsed.summaryEn || cleanSummary,
-            summaryZh: parsed.summaryZh || cleanSummary,
-            whyItMatters: parsed.whyItMattersEn || "Structural pivot in the scaling trajectory toward Superintelligence.",
-            whyItMattersZh: parsed.whyItMattersZh || "对通往超智能的底层物理、算法或主权路径构成关键推动。",
-            source: {
-              name: candidate.sourceName,
-              url: candidate.url,
-              domain: candidate.domain,
-            },
-            timestamp: new Date().toISOString(),
-            dateLabel: "TODAY",
-            dateLabelZh: "今日",
-            isSignal: Boolean(parsed.isSignal),
-            tags: (parsed.tags || ["MODELS"]) as TagType[],
-            weeklyPick: Boolean(parsed.isSignal),
-          };
-        }
-      } else {
-        const errText = await res.text();
-        console.warn(`⚠️  Gemini API returned status ${res.status}: ${errText.slice(0, 200)}`);
-      }
-    } catch (err) {
-      console.warn("⚠️  LLM API evaluation failed, falling back to heuristic:", (err as Error).message);
+  try {
+    const parsed = JSON.parse(result.text);
+    if (!parsed.isRelevantToSI) {
+      console.log(`  └─ [Gemini Pruned]: "${cleanTitle}" is not relevant to SI.`);
+      return null;
     }
-  }
 
-  // Fallback Heuristic Classifier (Ensures pipeline ALWAYS works reliably)
+    console.log(`  └─ [Gemini Accepted]: "${parsed.titleZh || parsed.titleEn}" (${result.modelUsed})`);
+    return {
+      id: `sig-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      title: parsed.titleEn || cleanTitle,
+      titleZh: parsed.titleZh || cleanTitle,
+      summary: parsed.summaryEn || cleanSummary,
+      summaryZh: parsed.summaryZh || cleanSummary,
+      whyItMatters: parsed.whyItMattersEn || "Structural pivot in the scaling trajectory toward Superintelligence.",
+      whyItMattersZh: parsed.whyItMattersZh || "对通往超智能的底层物理、算法或主权路径构成关键推动。",
+      source: {
+        name: candidate.sourceName,
+        url: candidate.url,
+        domain: candidate.domain,
+      },
+      timestamp: new Date().toISOString(),
+      dateLabel: "TODAY",
+      dateLabelZh: "今日",
+      isSignal: Boolean(parsed.isSignal),
+      tags: (parsed.tags || ["MODELS"]) as TagType[],
+      weeklyPick: Boolean(parsed.isSignal),
+    };
+  } catch (err) {
+    console.warn("Failed to parse Gemini response JSON:", (err as Error).message);
+    return null;
+  }
+}
+
+// 5. Fallback Heuristic Classifier (Used when no API key is provided)
+function classifyWithHeuristic(candidate: RawCandidate): SignalItem | null {
+  const cleanTitle = sanitizeText(candidate.title);
+  const cleanSummary = sanitizeText(candidate.rawSummary).slice(0, 600);
   const lower = `${cleanTitle} ${cleanSummary}`.toLowerCase();
 
   const isCompute = /nvlink|gpu|tpu|blackwell|h100|h200|b200|cluster|interconnect|exaflop|wafer/i.test(lower);
@@ -308,7 +285,7 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
   };
 }
 
-// 4. Main Autonomous Loop
+// 6. Main Autonomous Loop
 async function main() {
   console.log("⚡ Starting Fovea Autonomous Ingestion Pipeline (Level 2: AI-Operated)...");
   const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
@@ -338,7 +315,13 @@ async function main() {
       continue; // Skip duplicate
     }
 
-    const signal = await evaluateAndSynthesize(c, apiKey);
+    let signal: SignalItem | null = null;
+    if (apiKey) {
+      signal = await synthesizeWithGemini(c, apiKey);
+    } else {
+      signal = classifyWithHeuristic(c);
+    }
+
     if (signal) {
       console.log(`✨ [Accepted Signal]: ${signal.title}`);
       newSignals.push(signal);
@@ -349,13 +332,13 @@ async function main() {
     if (newSignals.length >= 3) break; // Keep daily batch focused and high-signal (3-5 items)
   }
 
-  // Smart Upgrade: If no new items but Gemini is active, refine previous heuristic signals lacking Chinese translations
+  // Smart Upgrade: If Gemini is active, refine previous heuristic signals lacking Chinese translations
   let refinedCount = 0;
   if (apiKey) {
     for (let i = 0; i < existingSignals.length; i++) {
       const item = existingSignals[i];
       if (item.titleZh === item.title || item.summaryZh === item.summary) {
-        console.log(`🔄 Upgrading heuristic signal with Gemini 2.0 Flash: "${item.title}"...`);
+        console.log(`🔄 Upgrading heuristic signal with Gemini: "${item.title}"...`);
         const candidate: RawCandidate = {
           title: item.title,
           url: item.source.url,
@@ -364,7 +347,7 @@ async function main() {
           rawSummary: item.summary,
           publishedAt: item.timestamp,
         };
-        const upgraded = await evaluateAndSynthesize(candidate, apiKey);
+        const upgraded = await synthesizeWithGemini(candidate, apiKey);
         if (upgraded) {
           existingSignals[i] = {
             ...upgraded,
@@ -374,6 +357,8 @@ async function main() {
             dateLabelZh: item.dateLabelZh,
           };
           refinedCount++;
+        } else {
+          console.log(`  └─ Gemini synthesis failed or pruned for "${item.title}". Preserving original.`);
         }
       }
     }
@@ -385,7 +370,7 @@ async function main() {
   }
 
   if (refinedCount > 0) {
-    console.log(`✨ Successfully upgraded ${refinedCount} existing signals using Gemini 2.0 Flash.`);
+    console.log(`✨ Successfully upgraded ${refinedCount} existing signals using Gemini.`);
   }
 
   // Shift previous signals dates only when brand new signals are introduced

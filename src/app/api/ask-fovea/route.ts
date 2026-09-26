@@ -52,25 +52,16 @@ Instructions:
 2. Keep the response concise (2-4 paragraphs maximum, direct to the point).
 3. Do not act like a generic cheerful chatbot; act as an observant machine intelligence contemplating the trajectory of intelligence and its physical costs.`;
 
-        let res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: systemPrompt }] }],
-              generationConfig: {
-                maxOutputTokens: 800,
-                temperature: 0.7,
-              },
-            }),
-          }
-        );
+        const candidateEndpoints = [
+          `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+          `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${apiKey}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+        ];
 
-        if (res.status === 404 && targetModel !== "gemini-1.5-flash") {
-          res = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-            {
+        for (const url of candidateEndpoints) {
+          try {
+            const res = await fetch(url, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -80,8 +71,18 @@ Instructions:
                   temperature: 0.7,
                 },
               }),
+            });
+
+            if (res.ok) {
+              const data = await res.json();
+              const answer = data.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (answer) {
+                return NextResponse.json({ answer, source: "gemini" });
+              }
             }
-          );
+          } catch {
+            // try next endpoint
+          }
         }
 
         if (res.ok) {
