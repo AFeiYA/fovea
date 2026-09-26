@@ -295,22 +295,57 @@ async function main() {
     if (newSignals.length >= 3) break; // Keep daily batch focused and high-signal (3-5 items)
   }
 
-  if (newSignals.length === 0) {
+  // Smart Upgrade: If no new items but Gemini is active, refine previous heuristic signals lacking Chinese translations
+  let refinedCount = 0;
+  if (apiKey) {
+    for (let i = 0; i < existingSignals.length; i++) {
+      const item = existingSignals[i];
+      if (item.titleZh === item.title || item.summaryZh === item.summary) {
+        console.log(`🔄 Upgrading heuristic signal with Gemini 2.0 Flash: "${item.title}"...`);
+        const candidate: RawCandidate = {
+          title: item.title,
+          url: item.source.url,
+          sourceName: item.source.name,
+          domain: item.source.domain,
+          rawSummary: item.summary,
+          publishedAt: item.timestamp,
+        };
+        const upgraded = await evaluateAndSynthesize(candidate, apiKey);
+        if (upgraded) {
+          existingSignals[i] = {
+            ...upgraded,
+            id: item.id,
+            timestamp: item.timestamp,
+            dateLabel: item.dateLabel,
+            dateLabelZh: item.dateLabelZh,
+          };
+          refinedCount++;
+        }
+      }
+    }
+  }
+
+  if (newSignals.length === 0 && refinedCount === 0) {
     console.log("ℹ️  No new distinct SI-grade signals qualified today. State preserved.");
     return;
   }
 
-  console.log(`🎯 Successfully synthesized ${newSignals.length} new signals.`);
+  if (refinedCount > 0) {
+    console.log(`✨ Successfully upgraded ${refinedCount} existing signals using Gemini 2.0 Flash.`);
+  }
 
-  // Shift previous signals dates: current "TODAY" becomes "YESTERDAY", etc.
-  const updatedExisting = existingSignals.map((s) => {
-    if (s.dateLabel === "TODAY") {
-      return { ...s, dateLabel: "YESTERDAY", dateLabelZh: "昨日" };
-    }
-    return s;
-  });
-
-  const mergedSignals = [...newSignals, ...updatedExisting].slice(0, 20); // Keep top 20 signals
+  // Shift previous signals dates only when brand new signals are introduced
+  const mergedSignals =
+    newSignals.length > 0
+      ? [
+          ...newSignals,
+          ...existingSignals.map((s) =>
+            s.dateLabel === "TODAY"
+              ? { ...s, dateLabel: "YESTERDAY", dateLabelZh: "昨日" }
+              : s
+          ),
+        ].slice(0, 20)
+      : existingSignals.slice(0, 20);
 
   // Write back to src/data/signals.ts
   const filePath = path.join(__dirname, "../src/data/signals.ts");
