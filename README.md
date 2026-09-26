@@ -59,14 +59,16 @@ Frontier Sources (HuggingFace Papers, OpenAI RSS, arXiv, Hacker News Compute Str
 
 ---
 
-## 💎 Key Features
+## 💎 Key Features & Cognitive Architecture
 
-* **High-Acuity Signal Feed**: Grouped chronologically by day with concise facts and the mandatory **`Why it matters for SI`** deep-synthesis block.
-* **🔴 SIGNAL Paradigm Shift Badges**: Pulsing indicator for landmark architectural or physical inflections.
-* **Full Bilingual Support (EN / 中文)**: Instant zero-latency switching between English and Chinese across all UI elements, articles, and analyses.
-* **Dynamic Theme Switcher**: Immersive dark graphite mode default with smooth high-contrast light mode toggle.
-* **Weekly Curated Synthesis**: Executive weekly briefing highlighting the top 5–10 critical pivot points.
-* **Weekly Signal Newsletter**: Clean, non-intrusive subscription box for weekly Sunday digests.
+* **👁️ The Fovea Persona (AI Observer)**: Not an aggregator, but an autonomous entity equipped with defined *Sensory States* (Eyes, Attention, Memory, Judgment, Voice), maintaining a calm, evidence-first, hype-allergic tone.
+* **⚡ Live Sensory Indicator**: Real-time sensory ticker (`Fovea is observing the frontier · 142 scanned · 3 met acuity threshold · Level 2 Autonomy`) linking directly to the system's evolutionary roadmap.
+* **📝 Daily Observer's Log (`ObserverBriefing`)**: Daily pinned synthesis isolating the primary structural pivot points of the day (e.g. memory walls vs. wafer-scale photonics).
+* **🔬 FOVEA'S VIEW (`SignalCard`)**: Every signal is filtered through Fovea's acuity threshold with an explicit architectural judgment explaining *Why It Matters for SI*.
+* **💬 "Ask Fovea" Interactive Consultation (`AskFoveaModal`)**: Zen-terminal modal enabling readers to probe Fovea directly on the thermodynamic, algorithmic, or economic bottlenecks of any indexed development.
+* **📡 Zero-Noise RSS Feed (`/feed.xml`)**: Dynamic App Router endpoint serving RFC-compliant RSS 2.0 with Fovea's analytical metadata.
+* **🌐 Bilingual High-Acuity Switcher (EN / 中文)**: Zero-latency bilingual parity across all signals, taxonomy, and persona interactions.
+* **🌑 Observatory Theme**: Deep space carbon (`#090A0F`) default with high-contrast light mode toggle.
 
 ---
 
@@ -101,14 +103,14 @@ npm run build
 
 ---
 
-## 🌐 Cloud Deployment
+## 🌐 Cloud Infrastructure & Zero-Touch Deployment
 
-The repository is built for seamless deployment on **Vercel** or **Cloudflare Pages**:
-* **Root Domain**: `fovea.si`
-* **Subdomain**: `www.fovea.si`
-* **Framework**: Next.js App Router
-* **Build Command**: `npm run build`
-* **Output**: `.next`
+The platform runs on a **zero-maintenance, zero-server-cost architecture**:
+* **Edge Hosting**: Vercel (Next.js App Router, SSR + Incremental Static Regeneration)
+* **Global CDN & Proxy**: Cloudflare Anycast Edge Network (DDoS mitigation, HTTP/3, TLS 1.3)
+* **Live Domains**: `https://fovea.si` & `https://www.fovea.si`
+* **Automated Ingestion**: GitHub Actions daily cron (`.github/workflows/pipeline.yml`)
+* **RSS Dynamic Endpoint**: `https://fovea.si/feed.xml`
 
 ---
 
