@@ -129,6 +129,7 @@ async function evaluateAndSynthesize(
   // If Gemini API Key is present, call Gemini
   if (apiKey && provider === "gemini") {
     try {
+      console.log(`🧠 Synthesizing via Gemini 2.0 Flash: "${cleanTitle}"...`);
       const prompt = `You are the lead evaluator for FOVEA.SI, an elite publication tracking the emergence of Superintelligence (SI) rather than generic AI tools.
 Filter out shallow tool announcements, wrappers, or minor marketing updates.
 Focus strictly on:
@@ -173,8 +174,12 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
         const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) {
           const parsed = JSON.parse(text);
-          if (!parsed.isRelevantToSI) return null;
+          if (!parsed.isRelevantToSI) {
+            console.log(`  └─ [Gemini Filtered]: Non-SI topic pruned.`);
+            return null;
+          }
 
+          console.log(`  └─ [Gemini Accepted]: SI-grade signal identified.`);
           return {
             id: `sig-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
             title: parsed.titleEn || cleanTitle,
@@ -196,6 +201,9 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
             weeklyPick: Boolean(parsed.isSignal),
           };
         }
+      } else {
+        const errText = await res.text();
+        console.warn(`⚠️  Gemini API returned status ${res.status}: ${errText.slice(0, 200)}`);
       }
     } catch (err) {
       console.warn("⚠️  LLM API evaluation failed, falling back to heuristic:", (err as Error).message);
@@ -250,6 +258,13 @@ Output a JSON object ONLY (no markdown formatting, no backticks):
 async function main() {
   console.log("⚡ Starting Fovea Autonomous Ingestion Pipeline (Level 2: AI-Operated)...");
   const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
+
+  if (apiKey) {
+    const masked = apiKey.length > 8 ? `${apiKey.slice(0, 4)}...${apiKey.slice(-4)}` : "***";
+    console.log(`🤖 LLM Engine detected: GEMINI_API_KEY is configured (${masked}). Running deep SI synthesis.`);
+  } else {
+    console.log("⚠️  No GEMINI_API_KEY detected in environment. Running fallback heuristic classifier.");
+  }
 
   const candidates = await fetchCandidates();
   if (candidates.length === 0) {
