@@ -115,6 +115,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [language, setLanguage] = useState<Language>("zh");
 
+  const applyTheme = (t: "dark" | "light") => {
+    const root = document.documentElement;
+    if (t === "dark") {
+      root.classList.remove("light");
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+      root.classList.add("light");
+    }
+  };
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("fovea_theme") as "dark" | "light" | null;
     if (savedTheme) {
@@ -134,18 +145,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       const isChinese = navigator.language.toLowerCase().startsWith("zh");
       setLanguage(isChinese ? "zh" : "en");
     }
-  }, []);
 
-  const applyTheme = (t: "dark" | "light") => {
-    const root = document.documentElement;
-    if (t === "dark") {
-      root.classList.remove("light");
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-      root.classList.add("light");
-    }
-  };
+  }, []);
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
