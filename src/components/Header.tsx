@@ -22,20 +22,24 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
         {/* Top Status Bar & Controls */}
         <div className="flex items-center justify-between text-xs font-mono mb-3">
-          {/* Radar Status */}
-          <div className="flex items-center space-x-2">
+          {/* Radar Status (Clickable to view roadmap) */}
+          <button
+            onClick={() => setActiveTab("about")}
+            className="flex items-center space-x-2 text-left group hover:opacity-80 transition-opacity cursor-pointer"
+            title={language === "zh" ? "点击查看系统 4 阶自主演化路线图" : "Click to view 4-Level Autonomy Roadmap"}
+          >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="tracking-wider uppercase text-[var(--text-muted)]">
+            <span className="tracking-wider uppercase text-[var(--text-muted)] group-hover:text-amber-500 transition-colors">
               {t("radarActive")}
             </span>
             <span className="text-[var(--border-strong)]">·</span>
             <span className="text-[var(--text-dim)]">
               {signalCount} {t("signalsIndexed")}
             </span>
-          </div>
+          </button>
 
           {/* Language & Theme Controls */}
           <div className="flex items-center space-x-2">
