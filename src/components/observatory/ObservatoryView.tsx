@@ -8,11 +8,63 @@ import { SignalHoverTooltip } from "./SignalHoverTooltip";
 import { SignalReadingSheet } from "@/components/reading/SignalReadingSheet";
 import { AudioVisualizerButton } from "./AudioVisualizerButton";
 import { Eye, ListFilter, Sparkles, Orbit, MessageSquare } from "lucide-react";
+import { playTelemetryTick } from "@/utils/foveaAudio";
 
 interface ObservatoryViewProps {
   signals: SignalItem[];
   onSwitchToFeed: () => void;
 }
+
+const SPECTRUM_FILTERS = [
+  {
+    id: "ALL",
+    zh: "全光谱",
+    en: "All Spectra",
+    dot: "bg-amber-400",
+    activeClass:
+      "bg-amber-500/20 text-amber-300 ring-1 ring-amber-500/50 shadow-[0_0_18px_rgba(245,158,11,0.3)]",
+  },
+  {
+    id: "REASONING",
+    zh: "深度推理",
+    en: "Reasoning",
+    dot: "bg-sky-400",
+    activeClass:
+      "bg-sky-500/20 text-sky-300 ring-1 ring-sky-500/50 shadow-[0_0_18px_rgba(56,189,248,0.3)]",
+  },
+  {
+    id: "COMPUTE",
+    zh: "异构算力",
+    en: "Compute",
+    dot: "bg-rose-400",
+    activeClass:
+      "bg-rose-500/20 text-rose-300 ring-1 ring-rose-500/50 shadow-[0_0_18px_rgba(244,63,94,0.3)]",
+  },
+  {
+    id: "ENERGY",
+    zh: "吉瓦能源",
+    en: "Energy",
+    dot: "bg-emerald-400",
+    activeClass:
+      "bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-500/50 shadow-[0_0_18px_rgba(16,185,129,0.3)]",
+  },
+  {
+    id: "MODELS",
+    zh: "基座模型",
+    en: "Models",
+    dot: "bg-purple-400",
+    activeClass:
+      "bg-purple-500/20 text-purple-300 ring-1 ring-purple-500/50 shadow-[0_0_18px_rgba(168,85,247,0.3)]",
+  },
+  {
+    id: "GOVERNANCE",
+    zh: "主权治理",
+    en: "Governance",
+    dot: "bg-amber-400",
+    activeClass:
+      "bg-amber-500/20 text-amber-300 ring-1 ring-amber-500/50 shadow-[0_0_18px_rgba(245,158,11,0.3)]",
+  },
+];
 
 export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
   signals,
@@ -25,6 +77,7 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
   const [hoveredSignal, setHoveredSignal] = useState<SignalItem | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [selectedSignal, setSelectedSignal] = useState<SignalItem | null>(null);
+  const [isHoveringTooltip, setIsHoveringTooltip] = useState(false);
 
   // Core Physical Interaction & Thought Dialogue
   const [coreThought, setCoreThought] = useState<string>("");
@@ -96,6 +149,7 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
         onPokeCore={handlePokeCore}
         onHoverCore={handleHoverCore}
         isZh={isZh}
+        isHoveringTooltip={isHoveringTooltip}
       />
 
       {/* Floating HUD Tooltip for Signals */}
@@ -103,6 +157,7 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
         signal={hoveredSignal}
         pos={tooltipPos}
         onClick={handleSelectSignal}
+        onHoverChange={setIsHoveringTooltip}
       />
 
       {/* Mobile Subtle Single-line Telemetry Pill for Fovea Thought */}
@@ -201,53 +256,79 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
         </div>
       </header>
 
-      {/* Floating 3D Spectrum Category Filter Dock */}
-      <div className="pointer-events-auto absolute bottom-11 inset-x-0 z-30 flex justify-center px-4">
-        <div className="flex items-center space-x-1 p-1 rounded-full borderless-glass ring-1 ring-white/[0.08] shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-2xl max-w-full overflow-x-auto no-scrollbar">
-          {["ALL", "REASONING", "COMPUTE", "ENERGY", "MODELS", "GOVERNANCE"].map((tag) => {
-            const isSelected = activeFilter === tag;
+      {/* Unified Floating Observatory Spectrum Console */}
+      <div className="pointer-events-auto absolute bottom-4 sm:bottom-6 inset-x-0 z-30 flex flex-col items-center px-4 space-y-2">
+        {/* Spectrum Prism Lens Dock */}
+        <div className="flex items-center space-x-1 sm:space-x-1.5 p-1.5 rounded-full borderless-glass ring-1 ring-white/[0.08] bg-[#07070b]/90 shadow-[0_16px_48px_rgba(0,0,0,0.7)] backdrop-blur-2xl max-w-full overflow-x-auto no-scrollbar">
+          {SPECTRUM_FILTERS.map((item) => {
+            const isSelected = activeFilter === item.id;
+            const count =
+              item.id === "ALL"
+                ? signals.length
+                : signals.filter((s) => s.tags.includes(item.id as any)).length;
+
             return (
               <button
-                key={tag}
-                onClick={() => setActiveFilter(tag)}
-                className={`px-3 py-1 rounded-full text-[11px] font-mono tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                key={item.id}
+                onClick={() => {
+                  playTelemetryTick();
+                  setActiveFilter(item.id);
+                }}
+                className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all whitespace-nowrap cursor-pointer active:scale-95 ${
                   isSelected
-                    ? "bg-amber-500/25 text-amber-300 ring-1 ring-amber-500/40 font-semibold shadow-[0_0_16px_rgba(245,158,11,0.25)]"
-                    : "text-zinc-400 hover:text-white hover:bg-white/[0.05]"
+                    ? `${item.activeClass} font-semibold`
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
                 }`}
+                title={isZh ? `切换至 ${item.zh} 光谱` : `Filter by ${item.en}`}
               >
-                {tag === "ALL" ? (isZh ? "全光谱" : "ALL") : tag}
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${item.dot} ${
+                    isSelected ? "animate-pulse" : "opacity-60"
+                  }`}
+                />
+                <span>{isZh ? item.zh : item.en}</span>
+                <span className="text-[10px] opacity-40 font-normal">({count})</span>
               </button>
             );
           })}
         </div>
+
+        {/* Integrated Sub-Telemetry & Interactive Cues */}
+        <div className="flex items-center space-x-3 text-[10px] font-mono text-zinc-500 bg-zinc-950/75 backdrop-blur-md px-4 py-1 rounded-full ring-1 ring-white/[0.05] shadow-xs">
+          <div className="flex items-center space-x-1.5">
+            <Eye
+              size={11}
+              className={isHoveringCore ? "text-amber-400 animate-ping" : "text-amber-500/70"}
+            />
+            <span
+              className={`transition-colors ${
+                isHoveringCore ? "text-amber-300 font-semibold" : "text-zinc-400"
+              }`}
+            >
+              {isHoveringCore
+                ? isZh
+                  ? "⚡ 锁定中央核心视网膜 · 点击进行神经元戳击"
+                  : "⚡ FOVEA CENTRALIS LOCKED · CLICK TO POKE"
+                : isZh
+                ? "光标凝视聚焦 · 节点悬停定格"
+                : "FOVEAL GAZE LOCK · NODE ANCHORED"}
+            </span>
+          </div>
+
+          <span className="text-zinc-700">·</span>
+
+          <div className="hidden sm:flex items-center space-x-2 text-zinc-500">
+            <span>[拖拽旋转]</span>
+            <span>·</span>
+            <span>[滚轮缩放]</span>
+            <span>·</span>
+            <span>[SPACE 切换列表]</span>
+          </div>
+          <div className="sm:hidden text-zinc-500">
+            <span>[双指旋转 · 缩放]</span>
+          </div>
+        </div>
       </div>
-
-      {/* Bottom Status Ticker & Interactive Hints */}
-      <footer className="pointer-events-none absolute bottom-0 inset-x-0 z-20 flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-2.5 bg-gradient-to-t from-[#050507]/90 via-[#050507]/30 to-transparent text-[11px] font-mono text-zinc-500">
-        <div className="flex items-center space-x-2">
-          <Eye size={12} className={isHoveringCore ? "text-amber-400 animate-pulse" : "text-amber-500"} />
-          <span className={`tracking-wide transition-colors ${isHoveringCore ? "text-amber-300 font-semibold" : "text-zinc-400"}`}>
-            {isHoveringCore
-              ? isZh
-                ? "⚡ [已锁定中央核心视网膜 · 点击进行神经元戳击]"
-                : "⚡ [TARGET ACQUIRED: FOVEA CENTRALIS · CLICK OCULAR CORE TO POKE]"
-              : isZh
-              ? "光标凝视处即刻高锐度聚焦 · 核心视网膜实时追踪视线"
-              : "FOVEAL GAZE LOCK ACTIVE · LIVING OCULAR CORE ENGAGED"}
-          </span>
-        </div>
-
-        <div className="hidden sm:flex items-center space-x-3 text-[10px] text-zinc-600">
-          <span>[DRAG TO ROTATE]</span>
-          <span>·</span>
-          <span>[SCROLL TO ZOOM]</span>
-          <span>·</span>
-          <span>[CLICK CORE TO POKE]</span>
-          <span>·</span>
-          <span>[SPACE FOR LIST]</span>
-        </div>
-      </footer>
 
       {/* Reading Sheet Overlay (When a signal is selected) */}
       {selectedSignal && (

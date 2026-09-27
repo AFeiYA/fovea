@@ -16,6 +16,7 @@ interface ObservatoryCanvasProps {
   onPokeCore?: (thought: string) => void;
   onHoverCore?: (isHovering: boolean) => void;
   isZh?: boolean;
+  isHoveringTooltip?: boolean;
 }
 
 interface NodeData {
@@ -47,11 +48,18 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
   onPokeCore,
   onHoverCore,
   isZh = false,
+  isHoveringTooltip = false,
 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+
+  const hoveredNodeIdRef = useRef<string | null>(null);
+  const isHoveringTooltipRef = useRef(false);
+  useEffect(() => {
+    isHoveringTooltipRef.current = isHoveringTooltip;
+  }, [isHoveringTooltip]);
 
   const nodesRef = useRef<NodeData[]>([]);
   const coreRef = useRef<{
@@ -651,28 +659,119 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
 
       // Animate Orbital Nodes
       const currentFilter = activeFilterRef.current;
-      nodesRef.current.forEach((n) => {
-        n.orbitAngle += n.orbitSpeed;
-        const x = Math.cos(n.orbitAngle) * n.orbitRadius;
-        const z = Math.sin(n.orbitAngle) * n.orbitRadius;
-        const y = n.baseY + Math.sin(elapsedTime * n.yOffsetFreq + n.orbitRadius) * 1.5;
+      const activeHoveredId = hoveredNodeIdRef.current;
 
-        n.mesh.position.set(x, y, z);
+      // Raycast & Foveated Focus Calculation (Check hover first to freeze appropriately)
+      if (cameraRef.current && rendererRef.current) {
+        if (isHoveringTooltipRef.current && activeHoveredId) {
+          // Cursor is currently inside the floating HUD tooltip: lock focus onto this signal
+          const matchedNode = nodesRef.current.find((n) => n.signal.id === activeHoveredId);
+          if (matchedNode) {
+            const screenVec = matchedNode.mesh.position.clone().project(cameraRef.current);
+            const sx = ((screenVec.x + 1) * width) / 2;
+            const sy = ((-screenVec.y + 1) * height) / 2;
+            setTooltipPos({ x: sx, y: sy });
+            matchedNode.mesh.scale.set(1.4, 1.4, 1.4);
+            (matchedNode.line.material as THREE.LineBasicMaterial).opacity = 0.85;
+          }
+        } else {
+          const raycaster = new THREE.Raycaster();
+          raycaster.setFromCamera(
+            new THREE.Vector2(mouseRef.current.x, mouseRef.current.y),
+            cameraRef.current
+          );
+
+          // Test raycast against Core meshes & Signal meshes
+          const candidateMeshes: THREE.Object3D[] = [];
+          if (coreRef.current) {
+            candidateMeshes.push(coreRef.current.eventHorizon);
+          }
+          nodesRef.current.forEach((n) => candidateMeshes.push(n.mesh));
+
+          const intersects = raycaster.intersectObjects(candidateMeshes, true);
+
+          if (intersects.length > 0) {
+            const hitObj = intersects[0].object;
+
+            if (hitObj.userData.isCore) {
+              if (!isHoveringCoreRef.current) {
+                playTelemetryTick();
+              }
+              isHoveringCoreRef.current = true;
+              hoveredNodeIdRef.current = null;
+              setHoveredSignal(null);
+              onHoverCore?.(true);
+            } else {
+              isHoveringCoreRef.current = false;
+              onHoverCore?.(false);
+
+              let hitMesh = hitObj as THREE.Mesh;
+              if (hitMesh.parent && hitMesh.parent instanceof THREE.Mesh) {
+                hitMesh = hitMesh.parent;
+              }
+              const matchedNode = nodesRef.current.find((n) => n.mesh === hitMesh);
+              if (matchedNode) {
+                if (hoveredNodeIdRef.current !== matchedNode.signal.id) {
+                  playTelemetryTick();
+                }
+                hoveredNodeIdRef.current = matchedNode.signal.id;
+                setHoveredSignal(matchedNode.signal);
+
+                const screenVec = matchedNode.mesh.position.clone().project(cameraRef.current);
+                const sx = ((screenVec.x + 1) * width) / 2;
+                const sy = ((-screenVec.y + 1) * height) / 2;
+                setTooltipPos({ x: sx, y: sy });
+
+                matchedNode.mesh.scale.set(1.45, 1.45, 1.45);
+                (matchedNode.line.material as THREE.LineBasicMaterial).opacity = 0.85;
+              }
+            }
+          } else {
+            isHoveringCoreRef.current = false;
+            onHoverCore?.(false);
+            hoveredNodeIdRef.current = null;
+            setHoveredSignal(null);
+          }
+        }
+      }
+
+      // Animate Orbital Nodes with Freeze on Hover & Bullet Time Focus
+      const currentHoverId = hoveredNodeIdRef.current;
+      nodesRef.current.forEach((n) => {
+        const isHovered = currentHoverId === n.signal.id;
+
+        if (isHovered) {
+          // FREEZE in place: orbital angle and coordinates do not change!
+          // User can comfortably read and click the signal without chasing it.
+        } else {
+          // Slow down surrounding orbital nodes when any node is hovered for a cinematic focus dilation
+          const speedMultiplier = currentHoverId ? 0.35 : 1.0;
+          n.orbitAngle += n.orbitSpeed * speedMultiplier;
+          const x = Math.cos(n.orbitAngle) * n.orbitRadius;
+          const z = Math.sin(n.orbitAngle) * n.orbitRadius;
+          const y = n.baseY + Math.sin(elapsedTime * n.yOffsetFreq + n.orbitRadius) * 1.5;
+
+          n.mesh.position.set(x, y, z);
+        }
 
         // Update Laser Filament
         const linePos = n.line.geometry.attributes.position as THREE.BufferAttribute;
         linePos.setXYZ(0, 0, 0, 0);
-        linePos.setXYZ(1, x, y, z);
+        linePos.setXYZ(1, n.mesh.position.x, n.mesh.position.y, n.mesh.position.z);
         linePos.needsUpdate = true;
 
         // Dynamic Spectrum Filtering Reaction
         const matches = currentFilter === "ALL" || n.signal.tags.includes(currentFilter as any);
         if (matches) {
-          const targetScale = n.signal.isSignal ? 1.15 : 1.0;
-          n.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+          if (!isHovered) {
+            const targetScale = n.signal.isSignal ? 1.15 : 1.0;
+            n.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+          }
           (n.mesh.material as THREE.MeshBasicMaterial).opacity = 1;
           n.glowMesh.visible = true;
-          (n.line.material as THREE.LineBasicMaterial).opacity = n.signal.isSignal ? 0.35 : 0.15;
+          if (!isHovered) {
+            (n.line.material as THREE.LineBasicMaterial).opacity = n.signal.isSignal ? 0.35 : 0.15;
+          }
         } else {
           n.mesh.scale.lerp(new THREE.Vector3(0.45, 0.45, 0.45), 0.1);
           n.glowMesh.visible = false;
@@ -680,9 +779,9 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
         }
       });
 
-      // Smooth Spherical Orbit Camera with Drag & Natural Drift
+      // Smooth Spherical Orbit Camera with Drag & Natural Drift (Pauses drift when hovering a node)
       if (cameraRef.current && !isTransitioningRef.current) {
-        if (!isDraggingRef.current) {
+        if (!isDraggingRef.current && !currentHoverId) {
           targetCameraAngleRef.current.theta += 0.0007;
         }
 
@@ -700,62 +799,6 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
 
         cameraRef.current.position.set(camX, camY, camZ);
         cameraRef.current.lookAt(0, 0, 0);
-      }
-
-      // Raycast & Foveated Focus Calculation
-      if (cameraRef.current && rendererRef.current) {
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera(
-          new THREE.Vector2(mouseRef.current.x, mouseRef.current.y),
-          cameraRef.current
-        );
-
-        // Test raycast against Core meshes & Signal meshes
-        const candidateMeshes: THREE.Object3D[] = [];
-        if (coreRef.current) {
-          candidateMeshes.push(coreRef.current.eventHorizon);
-        }
-        nodesRef.current.forEach((n) => candidateMeshes.push(n.mesh));
-
-        const intersects = raycaster.intersectObjects(candidateMeshes, true);
-
-        if (intersects.length > 0) {
-          const hitObj = intersects[0].object;
-
-          if (hitObj.userData.isCore) {
-            // Hovering the central Fovea Eye
-            if (!isHoveringCoreRef.current) {
-              playTelemetryTick();
-            }
-            isHoveringCoreRef.current = true;
-            setHoveredSignal(null);
-            onHoverCore?.(true);
-          } else {
-            isHoveringCoreRef.current = false;
-            onHoverCore?.(false);
-
-            let hitMesh = hitObj as THREE.Mesh;
-            if (hitMesh.parent && hitMesh.parent instanceof THREE.Mesh) {
-              hitMesh = hitMesh.parent;
-            }
-            const matchedNode = nodesRef.current.find((n) => n.mesh === hitMesh);
-            if (matchedNode) {
-              setHoveredSignal(matchedNode.signal);
-
-              const screenVec = matchedNode.mesh.position.clone().project(cameraRef.current);
-              const sx = ((screenVec.x + 1) * width) / 2;
-              const sy = ((-screenVec.y + 1) * height) / 2;
-              setTooltipPos({ x: sx, y: sy });
-
-              matchedNode.mesh.scale.set(1.45, 1.45, 1.45);
-              (matchedNode.line.material as THREE.LineBasicMaterial).opacity = 0.85;
-            }
-          }
-        } else {
-          isHoveringCoreRef.current = false;
-          onHoverCore?.(false);
-          setHoveredSignal(null);
-        }
       }
 
       renderer.render(scene, camera);

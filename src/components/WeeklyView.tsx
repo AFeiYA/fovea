@@ -18,8 +18,8 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Weekly Executive Summary - Borderless Glass */}
-      <div className="rounded-3xl borderless-glass ring-1 ring-white/[0.06] p-6 sm:p-8 backdrop-blur-2xl shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)]">
-        <div className="flex items-center space-x-2 text-amber-400 font-mono text-xs uppercase tracking-wider mb-2">
+      <div className="rounded-3xl borderless-glass ring-1 ring-black/[0.06] dark:ring-white/[0.06] p-6 sm:p-8 backdrop-blur-2xl shadow-[0_16px_40px_-12px_rgba(0,0,0,0.15)] dark:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)]">
+        <div className="flex items-center space-x-2 text-amber-600 dark:text-amber-400 font-mono text-xs uppercase tracking-wider mb-2">
           <Sparkles size={14} />
           <span>
             {isZh
@@ -47,7 +47,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
             {weeklyPicks.length}{" "}
             {isZh ? "个本周关键转折点已收录" : "critical inflection points this week"}
           </span>
-          <span className="text-amber-400/80">{isZh ? "FOVEA 编辑部精选" : "Curated by Fovea Editorial"}</span>
+          <span className="text-amber-600 dark:text-amber-400 font-medium">{isZh ? "FOVEA 编辑部精选" : "Curated by Fovea Editorial"}</span>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
           return (
             <div
               key={item.id}
-              className="flex items-start space-x-4 p-5 sm:p-6 rounded-2xl borderless-glass ring-1 ring-white/[0.04] hover:ring-amber-500/30 backdrop-blur-xl transition-all"
+              className="flex items-start space-x-4 p-5 sm:p-6 rounded-2xl borderless-glass ring-1 ring-black/[0.05] dark:ring-white/[0.04] hover:ring-amber-500/30 backdrop-blur-xl transition-all"
             >
               <span className="text-lg font-mono font-bold text-[var(--text-dim)] select-none pt-0.5">
                 0{idx + 1}
@@ -76,7 +76,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2 mb-1.5">
                   {item.isSignal && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-red-500/15 text-red-300 ring-1 ring-red-500/30">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-red-500/10 dark:bg-red-500/15 text-red-600 dark:text-red-400 ring-1 ring-red-500/30 font-semibold">
                       {t("signalBadge")}
                     </span>
                   )}
@@ -85,7 +85,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
                   </span>
                 </div>
 
-                <h4 className="text-sm sm:text-base font-semibold text-[var(--text-main)] hover:text-amber-400 transition-colors">
+                <h4 className="text-sm sm:text-base font-semibold text-[var(--text-main)] hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                   <a
                     href={item.source.url}
                     target="_blank"
@@ -101,11 +101,11 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
                   {summary}
                 </p>
 
-                <div className="mt-3 text-xs leading-relaxed rounded-xl bg-amber-500/[0.035] ring-1 ring-amber-500/20 p-3 backdrop-blur-md">
-                  <span className="font-semibold text-amber-400 font-mono">
+                <div className="mt-3 text-xs leading-relaxed rounded-xl bg-amber-500/[0.04] dark:bg-amber-500/[0.035] ring-1 ring-amber-500/20 p-3 backdrop-blur-md">
+                  <span className="font-semibold text-amber-600 dark:text-amber-400 font-mono">
                     {isZh ? "SI 跃迁核心：" : "SI Pivot: "}
                   </span>
-                  <span className="text-[var(--text-main)]">{whyItMatters}</span>
+                  <span className="text-zinc-800 dark:text-zinc-200">{whyItMatters}</span>
                 </div>
               </div>
             </div>
