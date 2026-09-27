@@ -14,7 +14,7 @@ interface ObservatoryCanvasProps {
   setTooltipPos: (pos: { x: number; y: number }) => void;
   activeFilter?: string;
   onPokeCore?: (thought: string) => void;
-  onHoverCore?: (isHovering: boolean, pos: { x: number; y: number }) => void;
+  onHoverCore?: (isHovering: boolean) => void;
   isZh?: boolean;
 }
 
@@ -57,10 +57,8 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
   const coreRef = useRef<{
     coreGroup: THREE.Group;
     eventHorizon: THREE.Mesh;
-    cornea: THREE.Mesh;
     holoRing: THREE.Mesh;
     holoRingOuter: THREE.Mesh;
-    halo: THREE.Mesh;
   } | null>(null);
 
   // Core Physical Spring Dynamics
@@ -444,23 +442,8 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
     eventHorizon.userData = { isCore: true };
     coreGroup.add(eventHorizon);
 
-    // 4b. Refractive Glass Cornea Shell
-    const corneaGeo = new THREE.SphereGeometry(4.7, 48, 48);
-    const corneaMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.22,
-      roughness: 0.05,
-      metalness: 0.1,
-      transmission: 0.65,
-      ior: 1.45,
-    });
-    const cornea = new THREE.Mesh(corneaGeo, corneaMat);
-    cornea.userData = { isCore: true };
-    coreGroup.add(cornea);
-
-    // 4c. Concentric Astrolabe Holographic Rings
-    const holoRingGeo = new THREE.TorusGeometry(5.5, 0.12, 16, 120);
+    // 4b. Concentric Astrolabe Holographic Rings
+    const holoRingGeo = new THREE.TorusGeometry(5.4, 0.08, 16, 120);
     const holoRingMat = new THREE.MeshBasicMaterial({
       color: 0xf59e0b,
       transparent: true,
@@ -470,7 +453,7 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
     holoRing.rotation.x = Math.PI / 2.3;
     coreGroup.add(holoRing);
 
-    const holoRingOuterGeo = new THREE.TorusGeometry(6.6, 0.06, 16, 120);
+    const holoRingOuterGeo = new THREE.TorusGeometry(6.6, 0.05, 16, 120);
     const holoRingOuterMat = new THREE.MeshBasicMaterial({
       color: 0x06b6d4,
       transparent: true,
@@ -480,40 +463,7 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
     holoRingOuter.rotation.x = -Math.PI / 2.8;
     coreGroup.add(holoRingOuter);
 
-    // 4d. Outer Caustics Halo Shader
-    const haloGeo = new THREE.SphereGeometry(7.0, 32, 32);
-    const haloMat = new THREE.ShaderMaterial({
-      uniforms: {
-        time: { value: 0 },
-        color1: { value: new THREE.Color(0xf59e0b) },
-        color2: { value: new THREE.Color(0x06b6d4) },
-      },
-      vertexShader: `
-        varying vec3 vNormal;
-        void main() {
-          vNormal = normalize(normalMatrix * normal);
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform float time;
-        uniform vec3 color1;
-        uniform vec3 color2;
-        varying vec3 vNormal;
-        void main() {
-          float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
-          vec3 mixedCol = mix(color1, color2, sin(time * 1.5) * 0.5 + 0.5);
-          gl_FragColor = vec4(mixedCol, intensity * 0.75);
-        }
-      `,
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
-    });
-    const halo = new THREE.Mesh(haloGeo, haloMat);
-    coreGroup.add(halo);
-
-    // 4e. Concentric Planetary Orbital Guidance Rings
+    // 4c. Concentric Planetary Orbital Guidance Rings
     const orbitRingRadii = [18, 24, 32, 42, 52];
     orbitRingRadii.forEach((r, idx) => {
       const ringPoints: THREE.Vector3[] = [];
@@ -536,10 +486,8 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
     coreRef.current = {
       coreGroup,
       eventHorizon,
-      cornea,
       holoRing,
       holoRingOuter,
-      halo,
     };
 
     // 5. Build Orbital Signal Field from INITIAL_SIGNALS
@@ -660,7 +608,7 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
 
       // Animate Central Lens & Dynamic Camera Tracking
       if (coreRef.current && cameraRef.current) {
-        const { coreGroup, eventHorizon, cornea, holoRing, holoRingOuter, halo } = coreRef.current;
+        const { coreGroup, eventHorizon, holoRing, holoRingOuter } = coreRef.current;
 
         // Apply physical spring scale
         coreGroup.scale.set(
@@ -669,19 +617,13 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
           coreScaleRef.current.z
         );
 
-        // Core and cornea look directly at the observer's camera
+        // Core looks directly at the observer's camera
         eventHorizon.lookAt(cameraRef.current.position);
-        cornea.lookAt(cameraRef.current.position);
 
         // Holographic Rings rotation
         holoRing.rotation.z = elapsedTime * 0.4;
         holoRing.rotation.y = elapsedTime * 0.2;
         holoRingOuter.rotation.z = -elapsedTime * 0.3;
-
-        const shaderMat = halo.material as THREE.ShaderMaterial;
-        if (shaderMat.uniforms?.time) {
-          shaderMat.uniforms.time.value = elapsedTime;
-        }
       }
 
       // Animate 3D Shockwave Rings
@@ -771,7 +713,7 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
         // Test raycast against Core meshes & Signal meshes
         const candidateMeshes: THREE.Object3D[] = [];
         if (coreRef.current) {
-          candidateMeshes.push(coreRef.current.eventHorizon, coreRef.current.cornea);
+          candidateMeshes.push(coreRef.current.eventHorizon);
         }
         nodesRef.current.forEach((n) => candidateMeshes.push(n.mesh));
 
@@ -787,14 +729,10 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
             }
             isHoveringCoreRef.current = true;
             setHoveredSignal(null);
-
-            const screenVec = new THREE.Vector3(0, 0, 0).project(cameraRef.current);
-            const sx = ((screenVec.x + 1) * width) / 2;
-            const sy = ((-screenVec.y + 1) * height) / 2;
-            onHoverCore?.(true, { x: sx, y: sy });
+            onHoverCore?.(true);
           } else {
             isHoveringCoreRef.current = false;
-            onHoverCore?.(false, { x: 0, y: 0 });
+            onHoverCore?.(false);
 
             let hitMesh = hitObj as THREE.Mesh;
             if (hitMesh.parent && hitMesh.parent instanceof THREE.Mesh) {
@@ -815,7 +753,7 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
           }
         } else {
           isHoveringCoreRef.current = false;
-          onHoverCore?.(false, { x: 0, y: 0 });
+          onHoverCore?.(false);
           setHoveredSignal(null);
         }
       }
@@ -887,7 +825,7 @@ export const ObservatoryCanvas: React.FC<ObservatoryCanvasProps> = ({
 
       const candidateMeshes: THREE.Object3D[] = [];
       if (coreRef.current) {
-        candidateMeshes.push(coreRef.current.eventHorizon, coreRef.current.cornea);
+        candidateMeshes.push(coreRef.current.eventHorizon);
       }
       nodesRef.current.forEach((n) => candidateMeshes.push(n.mesh));
 

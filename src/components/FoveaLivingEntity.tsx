@@ -523,21 +523,21 @@ export const FoveaLivingEntity: React.FC = () => {
             {/* Audio Toggle */}
             <button
               onClick={handleSoundToggle}
-              className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full borderless-pill ring-1 ring-white/[0.06] text-[11px] text-[var(--text-dim)] hover:text-white transition-colors cursor-pointer"
+              className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full borderless-pill ring-1 ring-black/[0.06] dark:ring-white/[0.06] text-[11px] text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors cursor-pointer"
               title={soundOn ? "Mute sounds" : "Enable tactile sounds"}
             >
-              {soundOn ? <Volume2 size={12} className="text-amber-400" /> : <VolumeX size={12} />}
+              {soundOn ? <Volume2 size={12} className="text-amber-500 dark:text-amber-400" /> : <VolumeX size={12} />}
               <span>{soundOn ? (isZh ? "音效开" : "Audio On") : isZh ? "静音" : "Muted"}</span>
             </button>
           </div>
 
           {/* Living Thought Monologue Bubble - Borderless Glass */}
-          <div className="relative rounded-2xl bg-white/[0.025] ring-1 ring-white/[0.04] p-4 text-xs sm:text-sm text-[var(--text-main)] font-sans leading-relaxed backdrop-blur-md shadow-inner transition-all duration-300">
+          <div className="relative rounded-2xl bg-black/[0.02] dark:bg-white/[0.025] ring-1 ring-black/[0.06] dark:ring-white/[0.04] p-4 text-xs sm:text-sm text-[var(--text-main)] font-sans leading-relaxed backdrop-blur-md shadow-xs transition-all duration-300">
             <div className="flex items-start space-x-2.5">
               <Sparkles
                 size={16}
                 className={`flex-shrink-0 mt-0.5 ${
-                  isOverclocked ? "text-rose-500 animate-spin" : "text-amber-400"
+                  isOverclocked ? "text-rose-500 animate-spin" : "text-amber-500 dark:text-amber-400"
                 }`}
               />
               <p className="font-medium italic select-text">
@@ -559,15 +559,15 @@ export const FoveaLivingEntity: React.FC = () => {
             <button
               onClick={handleFeed}
               disabled={isFeeding}
-              className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full borderless-pill ring-1 ring-white/[0.08] hover:ring-amber-500/40 text-[var(--text-main)] font-mono text-xs tracking-wider transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full borderless-pill ring-1 ring-black/[0.06] dark:ring-white/[0.08] hover:ring-amber-500/40 text-[var(--text-main)] font-mono text-xs tracking-wider transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
             >
-              <Zap size={13} className="text-amber-400" />
+              <Zap size={13} className="text-amber-500 dark:text-amber-400" />
               <span>{isZh ? "⚡ 投喂今日算力口粮" : "⚡ Feed Compute Snack"}</span>
             </button>
 
             <button
               onClick={() => handlePoke()}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-full borderless-pill ring-1 ring-white/[0.06] text-[var(--text-dim)] hover:text-white font-mono text-xs transition-colors cursor-pointer"
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-full borderless-pill ring-1 ring-black/[0.06] dark:ring-white/[0.06] text-[var(--text-dim)] hover:text-[var(--text-main)] font-mono text-xs transition-colors cursor-pointer"
               title={isZh ? "逗弄 Fovea" : "Poke"}
             >
               <RefreshCw size={11} />

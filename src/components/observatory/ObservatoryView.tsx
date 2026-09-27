@@ -7,7 +7,7 @@ import { ObservatoryCanvas } from "./ObservatoryCanvas";
 import { SignalHoverTooltip } from "./SignalHoverTooltip";
 import { SignalReadingSheet } from "@/components/reading/SignalReadingSheet";
 import { AudioVisualizerButton } from "./AudioVisualizerButton";
-import { Eye, ListFilter, Sparkles, Orbit, MessageSquare, Terminal } from "lucide-react";
+import { Eye, ListFilter, Sparkles, Orbit, MessageSquare } from "lucide-react";
 
 interface ObservatoryViewProps {
   signals: SignalItem[];
@@ -29,7 +29,6 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
   // Core Physical Interaction & Thought Dialogue
   const [coreThought, setCoreThought] = useState<string>("");
   const [isHoveringCore, setIsHoveringCore] = useState(false);
-  const [corePos, setCorePos] = useState({ x: 0, y: 0 });
   const thoughtTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Check URL hash on load for deep linking (e.g. #sig-001)
@@ -79,13 +78,12 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
   }, []);
 
   // Handler when user hovers the central 3D Fovea Core
-  const handleHoverCore = useCallback((hovering: boolean, pos: { x: number; y: number }) => {
+  const handleHoverCore = useCallback((hovering: boolean) => {
     setIsHoveringCore(hovering);
-    if (hovering) setCorePos(pos);
   }, []);
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#050507] text-zinc-100 select-none">
+    <div className="dark relative w-screen h-screen overflow-hidden bg-[#050507] text-zinc-100 select-none">
       {/* 3D WebGL Canvas Layer */}
       <ObservatoryCanvas
         signals={signals}
@@ -107,39 +105,13 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
         onClick={handleSelectSignal}
       />
 
-      {/* Floating HUD Hover Label for Central 3D Core */}
-      {isHoveringCore && !hoveredSignal && (
-        <div
-          style={{ left: `${corePos.x}px`, top: `${Math.max(corePos.y - 75, 75)}px` }}
-          className="pointer-events-none absolute -translate-x-1/2 z-40 px-3.5 py-1.5 rounded-full borderless-glass ring-1 ring-amber-500/50 bg-[#050507]/90 text-[11px] font-mono text-amber-300 shadow-[0_0_24px_rgba(245,158,11,0.35)] animate-in fade-in zoom-in-95 flex items-center space-x-2 backdrop-blur-xl"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
-          </span>
-          <span className="font-semibold tracking-wider">
-            {isZh ? "核心视网膜 · 点击互动 [POKE]" : "OCULAR CORE · CLICK TO POKE"}
-          </span>
-        </div>
-      )}
-
-      {/* Floating Dialogue Speech Balloon when Core is Poked */}
+      {/* Mobile Subtle Single-line Telemetry Pill for Fovea Thought */}
       {coreThought && (
-        <div className="pointer-events-auto absolute top-20 inset-x-0 z-40 flex justify-center px-4 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="max-w-lg px-4 py-2.5 rounded-2xl borderless-glass ring-1 ring-amber-500/40 bg-[#050507]/92 backdrop-blur-2xl text-xs font-mono text-amber-200 shadow-[0_12px_40px_rgba(245,158,11,0.25)] flex items-center justify-between gap-3">
-            <div className="flex items-center space-x-2.5">
-              <span className="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-400 font-bold text-[10px] tracking-wider">
-                FOVEA.AI
-              </span>
-              <span className="text-zinc-100 font-medium leading-relaxed">{coreThought}</span>
-            </div>
-            <button
-              onClick={() => setCoreThought("")}
-              className="text-zinc-500 hover:text-zinc-300 text-xs px-1 cursor-pointer transition-colors"
-              title="Dismiss"
-            >
-              ✕
-            </button>
+        <div className="md:hidden pointer-events-none absolute bottom-24 inset-x-0 z-30 flex justify-center px-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="max-w-md px-3.5 py-1.5 rounded-full bg-zinc-950/90 backdrop-blur-xl ring-1 ring-amber-500/40 text-[11px] font-mono text-zinc-200 shadow-lg flex items-center space-x-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse flex-shrink-0" />
+            <span className="text-amber-400 font-bold flex-shrink-0">FOVEA //</span>
+            <span className="text-zinc-100 truncate">{coreThought}</span>
           </div>
         </div>
       )}
@@ -165,22 +137,32 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
           </div>
         </div>
 
-        {/* Middle Telemetry Readout with Live Quantum Waveform (Desktop) */}
-        <div className="hidden md:flex items-center space-x-3 px-4 py-1.5 rounded-full borderless-pill ring-1 ring-white/[0.06] text-[11px] font-mono text-zinc-400 shadow-xs">
-          <div className="flex items-center space-x-1.5 text-emerald-400">
-            {/* Live Micro-Waveform Equalizer */}
-            <div className="flex items-end space-x-0.5 h-3">
-              <span className="w-0.5 h-2 bg-emerald-400 animate-pulse" style={{ animationDuration: "0.8s" }} />
-              <span className="w-0.5 h-3 bg-emerald-400 animate-pulse" style={{ animationDuration: "0.5s" }} />
-              <span className="w-0.5 h-1.5 bg-emerald-400 animate-pulse" style={{ animationDuration: "1.1s" }} />
-              <span className="w-0.5 h-2.5 bg-emerald-400 animate-pulse" style={{ animationDuration: "0.7s" }} />
+        {/* Middle Telemetry Readout (Desktop): Morphs seamlessly into live thought transmission */}
+        <div className="hidden md:flex items-center space-x-3 px-4 py-1.5 rounded-full bg-zinc-950/85 ring-1 ring-white/[0.08] text-[11px] font-mono shadow-xs backdrop-blur-xl transition-all max-w-xl">
+          {coreThought ? (
+            <div className="flex items-center space-x-2 text-amber-300 animate-in fade-in duration-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping flex-shrink-0" />
+              <span className="font-bold text-amber-400 flex-shrink-0">FOVEA //</span>
+              <span className="text-zinc-100 font-medium truncate">{coreThought}</span>
             </div>
-            <span>LIVE</span>
-          </div>
-          <span className="text-zinc-700">·</span>
-          <span>{signals.length} {isZh ? "条信号在轨" : "SIGNALS IN ORBIT"}</span>
-          <span className="text-zinc-700">·</span>
-          <span className="text-amber-400/90 font-medium">ACUITY: 99.8%</span>
+          ) : (
+            <>
+              <div className="flex items-center space-x-1.5 text-emerald-400">
+                {/* Live Micro-Waveform Equalizer */}
+                <div className="flex items-end space-x-0.5 h-3">
+                  <span className="w-0.5 h-2 bg-emerald-400 animate-pulse" style={{ animationDuration: "0.8s" }} />
+                  <span className="w-0.5 h-3 bg-emerald-400 animate-pulse" style={{ animationDuration: "0.5s" }} />
+                  <span className="w-0.5 h-1.5 bg-emerald-400 animate-pulse" style={{ animationDuration: "1.1s" }} />
+                  <span className="w-0.5 h-2.5 bg-emerald-400 animate-pulse" style={{ animationDuration: "0.7s" }} />
+                </div>
+                <span>LIVE</span>
+              </div>
+              <span className="text-zinc-700">·</span>
+              <span>{signals.length} {isZh ? "条信号在轨" : "SIGNALS IN ORBIT"}</span>
+              <span className="text-zinc-700">·</span>
+              <span className="text-amber-400/90 font-medium">ACUITY: 99.8%</span>
+            </>
+          )}
         </div>
 
         {/* Right Controls: Ask Fovea, Feed Switch, Lusion Audio Visualizer, Language */}
@@ -244,11 +226,15 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
       {/* Bottom Status Ticker & Interactive Hints */}
       <footer className="pointer-events-none absolute bottom-0 inset-x-0 z-20 flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-2.5 bg-gradient-to-t from-[#050507]/90 via-[#050507]/30 to-transparent text-[11px] font-mono text-zinc-500">
         <div className="flex items-center space-x-2">
-          <Eye size={12} className="text-amber-500" />
-          <span className="tracking-wide">
-            {isZh
-              ? "光标凝视处即刻高锐度聚焦 · 点击中央核心可互动戳击"
-              : "FOVEAL GAZE LOCK ACTIVE // CLICK OCULAR CORE TO POKE"}
+          <Eye size={12} className={isHoveringCore ? "text-amber-400 animate-pulse" : "text-amber-500"} />
+          <span className={`tracking-wide transition-colors ${isHoveringCore ? "text-amber-300 font-semibold" : "text-zinc-400"}`}>
+            {isHoveringCore
+              ? isZh
+                ? "⚡ [已锁定中央核心视网膜 · 点击进行神经元戳击]"
+                : "⚡ [TARGET ACQUIRED: FOVEA CENTRALIS · CLICK OCULAR CORE TO POKE]"
+              : isZh
+              ? "光标凝视处即刻高锐度聚焦 · 核心视网膜实时追踪视线"
+              : "FOVEAL GAZE LOCK ACTIVE · LIVING OCULAR CORE ENGAGED"}
           </span>
         </div>
 
@@ -257,7 +243,7 @@ export const ObservatoryView: React.FC<ObservatoryViewProps> = ({
           <span>·</span>
           <span>[SCROLL TO ZOOM]</span>
           <span>·</span>
-          <span>[POKE CORE FOR INSIGHT]</span>
+          <span>[CLICK CORE TO POKE]</span>
           <span>·</span>
           <span>[SPACE FOR LIST]</span>
         </div>

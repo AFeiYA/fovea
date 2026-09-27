@@ -111,14 +111,14 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Navigation Tabs - Floating Borderless Glass Dock */}
-          <nav className="flex items-center space-x-1 p-1 rounded-full borderless-glass ring-1 ring-white/[0.06] self-start sm:self-end shadow-sm flex-wrap gap-y-1">
+          <nav className="flex items-center space-x-1 p-1 rounded-full borderless-glass ring-1 ring-black/[0.06] dark:ring-white/[0.06] self-start sm:self-end shadow-sm flex-wrap gap-y-1">
             {onSwitchToObservatory && (
               <button
                 onClick={onSwitchToObservatory}
-                className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 ring-1 ring-amber-500/30 transition-all shadow-xs cursor-pointer active:scale-95"
+                className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/40 transition-all shadow-xs cursor-pointer active:scale-95"
                 title={language === "zh" ? "进入 3D 智能观测镜 [SPACE]" : "Enter 3D Observatory [SPACE]"}
               >
-                <Orbit size={13} className="animate-spin text-amber-400" style={{ animationDuration: "12s" }} />
+                <Orbit size={13} className="animate-spin text-amber-500 dark:text-amber-400" style={{ animationDuration: "12s" }} />
                 <span>{language === "zh" ? "星图观测镜" : "Observatory"}</span>
               </button>
             )}
@@ -127,7 +127,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveTab("latest")}
               className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "latest"
-                  ? "bg-white/[0.09] text-white font-semibold ring-1 ring-white/[0.1] shadow-xs"
+                  ? "bg-black/[0.08] dark:bg-white/[0.1] text-zinc-950 dark:text-white font-semibold ring-1 ring-black/[0.1] dark:ring-white/[0.1] shadow-xs"
                   : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
               }`}
             >
@@ -138,8 +138,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveTab("signals")}
               className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "signals"
-                  ? "bg-red-500/15 text-red-400 ring-1 ring-red-500/30 font-semibold shadow-xs"
-                  : "text-[var(--text-muted)] hover:text-red-400"
+                  ? "bg-red-500/15 text-red-600 dark:text-red-400 ring-1 ring-red-500/30 font-semibold shadow-xs"
+                  : "text-[var(--text-muted)] hover:text-red-600 dark:hover:text-red-400"
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
@@ -150,7 +150,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveTab("weekly")}
               className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "weekly"
-                  ? "bg-white/[0.09] text-white font-semibold ring-1 ring-white/[0.1] shadow-xs"
+                  ? "bg-black/[0.08] dark:bg-white/[0.1] text-zinc-950 dark:text-white font-semibold ring-1 ring-black/[0.1] dark:ring-white/[0.1] shadow-xs"
                   : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
               }`}
             >
@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveTab("about")}
               className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "about"
-                  ? "bg-white/[0.09] text-white font-semibold ring-1 ring-white/[0.1] shadow-xs"
+                  ? "bg-black/[0.08] dark:bg-white/[0.1] text-zinc-950 dark:text-white font-semibold ring-1 ring-black/[0.1] dark:ring-white/[0.1] shadow-xs"
                   : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
               }`}
             >

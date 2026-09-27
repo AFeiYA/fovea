@@ -61,8 +61,8 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transition: "transform 0.14s ease-out, background-color 0.25s ease, box-shadow 0.25s ease",
       }}
-      className={`group relative rounded-2xl p-6 sm:p-7 fovea-card shadow-sm overflow-hidden bg-white/[0.025] hover:bg-white/[0.05] backdrop-blur-xl ring-1 ring-white/[0.03] hover:ring-amber-500/30 ${
-        item.isSignal ? "ring-red-500/25 bg-red-500/[0.015]" : ""
+      className={`group relative rounded-2xl p-6 sm:p-7 fovea-card shadow-sm overflow-hidden bg-white dark:bg-white/[0.025] hover:bg-zinc-50/80 dark:hover:bg-white/[0.05] backdrop-blur-xl ring-1 ring-black/[0.06] dark:ring-white/[0.04] hover:ring-amber-500/40 ${
+        item.isSignal ? "ring-red-500/30 bg-red-500/[0.015]" : ""
       }`}
     >
       {/* Dynamic Cursor Spotlight Layer */}
@@ -76,7 +76,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs">
         <div className="flex flex-wrap items-center gap-2">
           {item.isSignal && (
-            <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 text-red-500 dark:text-red-400 font-mono text-[11px] font-semibold tracking-wider">
+            <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 font-mono text-[11px] font-semibold tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
               <span>{t("signalBadge")}</span>
             </span>
@@ -86,7 +86,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
             <button
               key={tag}
               onClick={() => onTagClick && onTagClick(tag)}
-              className="px-2.5 py-0.5 rounded-full bg-white/[0.04] hover:bg-white/[0.09] text-[var(--text-muted)] hover:text-white font-mono text-[10px] tracking-wider transition-colors cursor-pointer"
+              className="px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.09] text-[var(--text-muted)] hover:text-[var(--text-main)] font-mono text-[10px] tracking-wider transition-colors cursor-pointer"
             >
               {t(`tag_${tag}`)}
             </button>
@@ -98,7 +98,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
             <>
               <button
                 onClick={() => onSelectSignal(item)}
-                className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-white/[0.04] hover:bg-white/[0.09] text-zinc-300 hover:text-amber-400 font-mono text-[10px] font-medium transition-colors cursor-pointer"
+                className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.09] text-[var(--text-muted)] hover:text-amber-600 dark:hover:text-amber-400 font-mono text-[10px] font-medium transition-colors cursor-pointer"
                 title={language === "zh" ? "展开瑞士排版专报" : "Open full Swiss editorial dispatch"}
               >
                 <Compass size={11} className="text-amber-500" />
@@ -124,7 +124,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
           {/* Ask Fovea Quick Trigger */}
           <button
             onClick={() => openAskFovea(item)}
-            className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 hover:text-amber-400 font-mono text-[10px] font-medium transition-colors shadow-2xs cursor-pointer"
+            className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 font-mono text-[10px] font-medium transition-colors shadow-2xs cursor-pointer"
             title="Ask Fovea directly about this signal"
           >
             <MessageSquareQuote size={11} />
@@ -144,7 +144,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
       </div>
 
       {/* Main Headline */}
-      <h2 className="text-base sm:text-lg font-semibold text-[var(--text-main)] group-hover:text-amber-600 dark:group-hover:text-amber-200 transition-colors leading-snug tracking-tight">
+      <h2 className="text-base sm:text-lg font-semibold text-[var(--text-main)] group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors leading-snug tracking-tight">
         <a
           href={item.source.url}
           target="_blank"
@@ -161,7 +161,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
       </p>
 
       {/* "FOVEA'S VIEW" Persona Callout Block */}
-      <div className="mt-4 pt-3.5 border-t border-white/[0.04]">
+      <div className="mt-4 pt-3.5 border-t border-black/[0.06] dark:border-white/[0.04]">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center space-x-1.5 text-xs font-mono font-bold tracking-wider text-amber-600 dark:text-amber-400 uppercase">
             <Eye size={13} className="text-amber-500" />
@@ -170,14 +170,14 @@ export const SignalCard: React.FC<SignalCardProps> = ({ item, onTagClick, onSele
 
           <button
             onClick={() => openAskFovea(item)}
-            className="text-[11px] font-mono text-[var(--text-dim)] hover:text-amber-500 transition-colors flex items-center space-x-1"
+            className="text-[11px] font-mono text-[var(--text-dim)] hover:text-amber-500 transition-colors flex items-center space-x-1 cursor-pointer"
           >
             <span>{t("askFovea")}</span>
             <span>→</span>
           </button>
         </div>
 
-        <p className="text-xs sm:text-sm leading-relaxed rounded-xl p-4 bg-amber-500/[0.03] text-zinc-200 border-l-2 border-amber-500/60 font-sans shadow-inner">
+        <p className="text-xs sm:text-sm leading-relaxed rounded-xl p-4 bg-amber-500/[0.05] dark:bg-amber-500/[0.03] text-zinc-800 dark:text-zinc-200 border-l-2 border-amber-500/80 font-sans shadow-xs">
           {whyItMatters}
         </p>
       </div>
