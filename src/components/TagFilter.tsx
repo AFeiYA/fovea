@@ -37,18 +37,18 @@ export const TagFilter: React.FC<TagFilterProps> = ({
           <button
             key={tag}
             onClick={() => onSelectTag(tag)}
-            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded text-[11px] font-mono tracking-wider transition-all whitespace-nowrap border shadow-xs ${
+            className={`flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider transition-all whitespace-nowrap cursor-pointer ${
               isSelected
-                ? "bg-[var(--text-main)] text-[var(--bg-page)] font-bold border-[var(--text-main)]"
-                : "bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-[var(--text-main)] border-[var(--border-card)] hover:border-[var(--border-strong)]"
+                ? "bg-amber-500/20 text-amber-300 ring-1 ring-amber-500/40 font-semibold shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+                : "borderless-pill ring-1 ring-white/[0.05] hover:ring-white/[0.12] text-[var(--text-muted)] hover:text-white"
             }`}
           >
             <span>{t(`tag_${tag}`)}</span>
             <span
-              className={`text-[10px] px-1 py-0.2 rounded-full ${
+              className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                 isSelected
-                  ? "bg-[var(--bg-page)] text-[var(--text-main)] font-semibold"
-                  : "bg-[var(--bg-subtle)] text-[var(--text-dim)]"
+                  ? "bg-amber-500/30 text-amber-200 font-semibold"
+                  : "bg-white/[0.04] text-[var(--text-dim)]"
               }`}
             >
               {count}

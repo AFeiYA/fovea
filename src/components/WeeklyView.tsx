@@ -17,9 +17,9 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Weekly Executive Summary */}
-      <div className="rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] p-6 sm:p-7 shadow-xs">
-        <div className="flex items-center space-x-2 text-amber-500 font-mono text-xs uppercase tracking-wider mb-2">
+      {/* Weekly Executive Summary - Borderless Glass */}
+      <div className="rounded-3xl borderless-glass ring-1 ring-white/[0.06] p-6 sm:p-8 backdrop-blur-2xl shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)]">
+        <div className="flex items-center space-x-2 text-amber-400 font-mono text-xs uppercase tracking-wider mb-2">
           <Sparkles size={14} />
           <span>
             {isZh
@@ -34,18 +34,20 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
             : "The Collision of Autonomous Reasoning & Sovereign Power"}
         </h2>
 
-        <p className="mt-3 text-sm text-[var(--text-muted)] leading-relaxed">
+        <p className="mt-3 text-sm text-[var(--text-muted)] leading-relaxed font-light">
           {isZh
             ? "过去七天的重大突破证明，「AI」这一传统软件词汇已彻底不足以定义当前的演进烈度。当测试期算力扩展定律在前沿实验室中解锁了自主自我纠错的深层逻辑推理，算力的核心制约已不可逆转地撞向物理与地缘世界的实体边界：核电机组重启专属直供算力集群，全球顶层政要亦将超算建设直接定调为关乎文明主权的生存基石。"
             : "The past seven days proved that the term 'AI' has officially been outgrown. While frontier labs demonstrated that test-time compute unlocks genuine self-correcting mathematical reasoning, the primary bottleneck has shifted irrevocably to the physical world: nuclear power plants recommissioned for clusters, and national leadership framing computation as sovereign state survival."}
         </p>
 
-        <div className="mt-5 pt-4 border-t border-[var(--border-card)] flex items-center justify-between text-xs text-[var(--text-dim)] font-mono">
+        <div className="gradient-divider opacity-50 my-5"></div>
+
+        <div className="flex items-center justify-between text-xs text-[var(--text-dim)] font-mono">
           <span>
             {weeklyPicks.length}{" "}
             {isZh ? "个本周关键转折点已收录" : "critical inflection points this week"}
           </span>
-          <span>{isZh ? "FOVEA 编辑部精选" : "Curated by Fovea Editorial"}</span>
+          <span className="text-amber-400/80">{isZh ? "FOVEA 编辑部精选" : "Curated by Fovea Editorial"}</span>
         </div>
       </div>
 
@@ -65,7 +67,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
           return (
             <div
               key={item.id}
-              className="flex items-start space-x-4 p-5 rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] transition-all shadow-xs"
+              className="flex items-start space-x-4 p-5 sm:p-6 rounded-2xl borderless-glass ring-1 ring-white/[0.04] hover:ring-amber-500/30 backdrop-blur-xl transition-all"
             >
               <span className="text-lg font-mono font-bold text-[var(--text-dim)] select-none pt-0.5">
                 0{idx + 1}
@@ -74,7 +76,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2 mb-1.5">
                   {item.isSignal && (
-                    <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/30">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-red-500/15 text-red-300 ring-1 ring-red-500/30">
                       {t("signalBadge")}
                     </span>
                   )}
@@ -83,7 +85,7 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
                   </span>
                 </div>
 
-                <h4 className="text-sm sm:text-base font-semibold text-[var(--text-main)] hover:text-amber-500 transition-colors">
+                <h4 className="text-sm sm:text-base font-semibold text-[var(--text-main)] hover:text-amber-400 transition-colors">
                   <a
                     href={item.source.url}
                     target="_blank"
@@ -95,12 +97,12 @@ export const WeeklyView: React.FC<WeeklyViewProps> = ({ signals }) => {
                   </a>
                 </h4>
 
-                <p className="mt-1.5 text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2">
+                <p className="mt-1.5 text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 font-light">
                   {summary}
                 </p>
 
-                <div className="mt-3 text-xs leading-relaxed fovea-why-box p-2.5 rounded-lg border-l-2 border">
-                  <span className="font-semibold text-amber-600 dark:text-amber-400 font-mono">
+                <div className="mt-3 text-xs leading-relaxed rounded-xl bg-amber-500/[0.035] ring-1 ring-amber-500/20 p-3 backdrop-blur-md">
+                  <span className="font-semibold text-amber-400 font-mono">
                     {isZh ? "SI 跃迁核心：" : "SI Pivot: "}
                   </span>
                   <span className="text-[var(--text-main)]">{whyItMatters}</span>

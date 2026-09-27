@@ -63,19 +63,19 @@ export const AskFoveaModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-xl rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-fadeIn">
+      <div className="relative w-full max-w-xl rounded-3xl borderless-glass ring-1 ring-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col max-h-[85vh] bg-[#050507]/95">
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-[var(--border-card)] flex items-start justify-between bg-[var(--bg-subtle)]">
-          <div className="flex items-center space-x-2.5">
-            <div className="w-6 h-6 rounded-md bg-zinc-950 border border-amber-500/50 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></div>
+        <div className="p-4 sm:p-5 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-xl bg-white/[0.04] ring-1 ring-white/[0.08] shadow-[0_0_12px_rgba(245,158,11,0.3)] flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
             </div>
             <div>
               <h3 className="text-sm font-mono font-bold text-[var(--text-main)] flex items-center space-x-2">
                 <span>{t("askFoveaTitle")}</span>
               </h3>
-              <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+              <p className="text-[11px] text-[var(--text-muted)] mt-0.5 font-light">
                 {t("askFoveaSubtitle")}
               </p>
             </div>
@@ -83,15 +83,16 @@ export const AskFoveaModal: React.FC = () => {
 
           <button
             onClick={closeAskFovea}
-            className="p-1 rounded-md text-[var(--text-dim)] hover:text-[var(--text-main)] hover:bg-[var(--border-card)] transition-colors"
+            className="p-2 rounded-full borderless-pill ring-1 ring-white/[0.06] text-zinc-400 hover:text-white transition-colors cursor-pointer"
           >
-            <X size={16} />
+            <X size={15} />
           </button>
         </div>
+        <div className="gradient-divider opacity-40"></div>
 
-        {/* Selected Signal Reference */}
-        <div className="px-5 py-3 border-b border-[var(--border-card)] bg-[var(--bg-card)] text-xs">
-          <span className="font-mono text-[10px] text-amber-500 uppercase tracking-wider block mb-1">
+        {/* Selected Signal Reference - Borderless Glass Pill */}
+        <div className="mx-5 my-3 p-3.5 rounded-2xl bg-amber-500/[0.035] ring-1 ring-amber-500/20 text-xs">
+          <span className="font-mono text-[10px] text-amber-400 uppercase tracking-wider block mb-1">
             {isZh ? "当前聚焦标的：" : "Active Focus Subject:"}
           </span>
           <p className="font-medium text-[var(--text-main)] line-clamp-2">
@@ -103,10 +104,10 @@ export const AskFoveaModal: React.FC = () => {
         <div className="flex-1 p-5 overflow-y-auto space-y-4 font-sans text-xs sm:text-sm">
           {/* Initial Greeting from Fovea */}
           <div className="flex items-start space-x-3">
-            <div className="w-6 h-6 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center flex-shrink-0 text-amber-500 font-mono text-[10px] font-bold">
+            <div className="w-7 h-7 rounded-full bg-amber-500/10 ring-1 ring-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-mono text-[11px] font-bold">
               F
             </div>
-            <div className="flex-1 p-3.5 rounded-xl border border-[var(--border-card)] bg-[var(--bg-subtle)] leading-relaxed text-[var(--text-main)] font-mono text-xs">
+            <div className="flex-1 p-4 rounded-2xl borderless-glass ring-1 ring-white/[0.04] leading-relaxed text-[var(--text-main)] font-mono text-xs">
               {isZh
                 ? "我是 Fovea。我追踪的是超越传统 AI 范畴的硬核质变。关于此项突破，你想探寻哪一维度的底层逻辑？"
                 : "I am Fovea. I monitor structural inflections beyond the scope of traditional AI tools. What dimension of this development do you wish to dissect?"}
@@ -122,19 +123,19 @@ export const AskFoveaModal: React.FC = () => {
               }`}
             >
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 font-mono text-[10px] font-bold ${
+                className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 font-mono text-[11px] font-bold ${
                   msg.role === "user"
-                    ? "bg-[var(--text-main)] text-[var(--bg-page)]"
-                    : "bg-zinc-900 border border-zinc-700 text-amber-500"
+                    ? "bg-white/[0.08] text-white ring-1 ring-white/[0.1]"
+                    : "bg-amber-500/10 ring-1 ring-amber-500/30 text-amber-400"
                 }`}
               >
                 {msg.role === "user" ? "U" : "F"}
               </div>
               <div
-                className={`flex-1 p-3.5 rounded-xl text-xs sm:text-sm leading-relaxed ${
+                className={`flex-1 p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                   msg.role === "user"
-                    ? "bg-[var(--text-main)] text-[var(--bg-page)] font-medium"
-                    : "border border-[var(--border-card)] bg-[var(--bg-subtle)] text-[var(--text-main)] font-mono text-xs"
+                    ? "bg-amber-500 text-zinc-950 font-medium shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                    : "borderless-glass ring-1 ring-white/[0.04] text-[var(--text-main)] font-mono text-xs"
                 }`}
               >
                 {msg.content}
@@ -143,7 +144,7 @@ export const AskFoveaModal: React.FC = () => {
           ))}
 
           {isThinking && (
-            <div className="flex items-center space-x-2 text-xs font-mono text-amber-500 animate-pulse pl-9">
+            <div className="flex items-center space-x-2 text-xs font-mono text-amber-400 animate-pulse pl-10">
               <Terminal size={13} />
               <span>{isZh ? "Fovea 正在推演底层逻辑..." : "Fovea is deliberating..."}</span>
             </div>
@@ -151,23 +152,24 @@ export const AskFoveaModal: React.FC = () => {
         </div>
 
         {/* Quick Prompts */}
-        <div className="px-5 py-2.5 border-t border-[var(--border-card)] bg-[var(--bg-card)] flex flex-wrap gap-1.5">
+        <div className="px-5 py-2.5 flex flex-wrap gap-2">
           <button
             onClick={() => handleAsk(t("askFoveaQuick1"))}
-            className="text-[11px] font-mono px-2.5 py-1 rounded-full border border-[var(--border-card)] bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:text-amber-500 hover:border-amber-500/40 transition-colors text-left"
+            className="text-[11px] font-mono px-3 py-1 rounded-full borderless-pill ring-1 ring-white/[0.06] hover:ring-amber-500/40 text-[var(--text-muted)] hover:text-amber-300 transition-all text-left cursor-pointer"
           >
             {t("askFoveaQuick1")}
           </button>
           <button
             onClick={() => handleAsk(t("askFoveaQuick2"))}
-            className="text-[11px] font-mono px-2.5 py-1 rounded-full border border-[var(--border-card)] bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:text-amber-500 hover:border-amber-500/40 transition-colors text-left"
+            className="text-[11px] font-mono px-3 py-1 rounded-full borderless-pill ring-1 ring-white/[0.06] hover:ring-amber-500/40 text-[var(--text-muted)] hover:text-amber-300 transition-all text-left cursor-pointer"
           >
             {t("askFoveaQuick2")}
           </button>
         </div>
+        <div className="gradient-divider opacity-40"></div>
 
         {/* Input Bar */}
-        <div className="p-4 border-t border-[var(--border-card)] bg-[var(--bg-subtle)]">
+        <div className="p-4 bg-transparent">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -180,12 +182,12 @@ export const AskFoveaModal: React.FC = () => {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               placeholder={t("askFoveaPlaceholder")}
-              className="flex-1 px-3.5 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-card)] text-xs sm:text-sm text-[var(--text-main)] placeholder-[var(--text-dim)] focus:outline-none focus:border-amber-500 font-mono transition-colors"
+              className="flex-1 px-4 py-2.5 rounded-full borderless-pill ring-1 ring-white/[0.06] focus:ring-amber-500/40 text-xs sm:text-sm text-[var(--text-main)] placeholder-[var(--text-dim)] font-mono transition-all outline-none"
             />
             <button
               type="submit"
               disabled={isThinking || !question.trim()}
-              className="flex items-center space-x-1 px-4 py-2 rounded-lg bg-[var(--text-main)] text-[var(--bg-page)] hover:opacity-90 font-medium text-xs font-mono disabled:opacity-50 transition-all cursor-pointer shadow-xs"
+              className="flex items-center space-x-1.5 px-4.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold text-xs font-mono disabled:opacity-50 transition-all cursor-pointer shadow-[0_0_15px_rgba(245,158,11,0.25)] active:scale-95"
             >
               <span>{t("askFoveaSend")}</span>
               <Send size={12} />

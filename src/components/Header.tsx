@@ -1,25 +1,27 @@
 "use client";
 
 import React from "react";
-import { Sun, Moon, Languages, Eye, Sparkles } from "lucide-react";
+import { Sun, Moon, Languages, Eye, Sparkles, Orbit } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 interface HeaderProps {
   activeTab: "latest" | "signals" | "weekly" | "about";
   setActiveTab: (tab: "latest" | "signals" | "weekly" | "about") => void;
   signalCount: number;
+  onSwitchToObservatory?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
   signalCount,
+  onSwitchToObservatory,
 }) => {
   const { theme, toggleTheme, language, toggleLanguage, t } = useApp();
 
   return (
-    <header className="fovea-header border-b backdrop-blur-md sticky top-0 z-40 transition-colors">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
+    <header className="sticky top-0 z-40 transition-colors bg-[var(--bg-page)]/80 backdrop-blur-xl">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-3 pb-2.5">
         {/* Top Status Bar & Controls */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono mb-3 gap-2">
           {/* Fovea's Sensory Observation State (Clickable to view roadmap & anatomy) */}
@@ -35,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="tracking-wider uppercase font-semibold text-[var(--text-main)] group-hover:text-amber-500 transition-colors">
               {t("observerStatus")}
             </span>
-            <span className="text-[var(--border-strong)]">·</span>
+            <span className="text-[var(--text-dim)] opacity-40">·</span>
             <span className="text-[var(--text-dim)]">
               {t("observerMetrics")}
             </span>
@@ -46,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center space-x-1 px-2 py-1 rounded border border-[var(--border-card)] hover:border-[var(--border-strong)] bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors shadow-xs"
+              className="flex items-center space-x-1 px-2.5 py-1 rounded-full borderless-pill ring-1 ring-white/[0.06] text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all cursor-pointer shadow-xs"
               title={language === "en" ? "切换至中文" : "Switch to English"}
             >
               <Languages size={12} className="text-amber-500" />
@@ -58,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Dark / Light Toggle */}
             <button
               onClick={toggleTheme}
-              className="flex items-center space-x-1.5 px-2.5 py-1 rounded border border-[var(--border-card)] hover:border-[var(--border-strong)] bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors shadow-xs"
+              className="flex items-center space-x-1.5 px-3 py-1 rounded-full borderless-pill ring-1 ring-white/[0.06] text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all cursor-pointer shadow-xs"
               title={theme === "dark" ? "切换为浅色模式" : "Switch to dark mode"}
             >
               {theme === "dark" ? (
@@ -80,14 +82,14 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Brand Main Section */}
-        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-2">
+        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-1">
           <div>
             <div className="flex items-center space-x-3">
               {/* Custom Reticle Logo representing the Fovea Centralis */}
-              <div className="relative w-7 h-7 flex items-center justify-center rounded-lg border border-[var(--border-card)] bg-[var(--bg-card)] shadow-xs">
+              <div className="relative w-7 h-7 flex items-center justify-center rounded-xl bg-white/[0.04] ring-1 ring-white/[0.08] shadow-[0_0_16px_rgba(245,158,11,0.2)]">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-4 h-4 border border-[var(--border-strong)] rounded-full"></div>
-                  <div className="absolute w-1.5 h-1.5 bg-amber-500 rounded-full shadow-[0_0_8px_rgba(245,158,11,0.9)]"></div>
+                  <div className="w-4 h-4 border border-amber-500/40 rounded-full animate-pulse"></div>
+                  <div className="absolute w-1.5 h-1.5 bg-amber-500 rounded-full shadow-[0_0_10px_rgba(245,158,11,1)]"></div>
                 </div>
               </div>
 
@@ -104,13 +106,24 @@ export const Header: React.FC<HeaderProps> = ({
             </p>
           </div>
 
-          {/* Navigation Tabs */}
-          <nav className="flex items-center space-x-1 p-1 rounded-lg border border-[var(--border-card)] bg-[var(--bg-card)] self-start sm:self-end shadow-xs">
+          {/* Navigation Tabs - Floating Borderless Glass Dock */}
+          <nav className="flex items-center space-x-1 p-1 rounded-full borderless-glass ring-1 ring-white/[0.06] self-start sm:self-end shadow-sm flex-wrap gap-y-1">
+            {onSwitchToObservatory && (
+              <button
+                onClick={onSwitchToObservatory}
+                className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 ring-1 ring-amber-500/30 transition-all shadow-xs cursor-pointer active:scale-95"
+                title={language === "zh" ? "进入 3D 智能观测镜 [SPACE]" : "Enter 3D Observatory [SPACE]"}
+              >
+                <Orbit size={13} className="animate-spin text-amber-400" style={{ animationDuration: "12s" }} />
+                <span>{language === "zh" ? "星图观测镜" : "Observatory"}</span>
+              </button>
+            )}
+
             <button
               onClick={() => setActiveTab("latest")}
-              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "latest"
-                  ? "bg-[var(--bg-subtle)] text-[var(--text-main)] font-semibold shadow-xs"
+                  ? "bg-white/[0.09] text-white font-semibold ring-1 ring-white/[0.1] shadow-xs"
                   : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
               }`}
             >
@@ -119,10 +132,10 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => setActiveTab("signals")}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+              className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "signals"
-                  ? "bg-red-500/10 text-red-600 dark:text-red-300 border border-red-500/30 shadow-xs"
-                  : "text-[var(--text-muted)] hover:text-red-500"
+                  ? "bg-red-500/15 text-red-400 ring-1 ring-red-500/30 font-semibold shadow-xs"
+                  : "text-[var(--text-muted)] hover:text-red-400"
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
@@ -131,9 +144,9 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => setActiveTab("weekly")}
-              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "weekly"
-                  ? "bg-[var(--bg-subtle)] text-[var(--text-main)] font-semibold shadow-xs"
+                  ? "bg-white/[0.09] text-white font-semibold ring-1 ring-white/[0.1] shadow-xs"
                   : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
               }`}
             >
@@ -142,9 +155,9 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => setActiveTab("about")}
-              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 activeTab === "about"
-                  ? "bg-[var(--bg-subtle)] text-[var(--text-main)] font-semibold shadow-xs"
+                  ? "bg-white/[0.09] text-white font-semibold ring-1 ring-white/[0.1] shadow-xs"
                   : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
               }`}
             >
@@ -153,6 +166,8 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
         </div>
       </div>
+      {/* Borderless gradient hairline */}
+      <div className="gradient-divider opacity-70"></div>
     </header>
   );
 };
