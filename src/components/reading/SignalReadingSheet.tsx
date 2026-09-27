@@ -58,10 +58,33 @@ export const SignalReadingSheet: React.FC<SignalReadingSheetProps> = ({
     }
   };
 
+  const [scrollProgress, setScrollProgress] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const total = el.scrollHeight - el.clientHeight;
+    if (total > 0) {
+      setScrollProgress((el.scrollTop / total) * 100);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#050507] text-zinc-100 selection:bg-amber-500/20 selection:text-amber-400 animate-reading-sheet">
+    <div
+      ref={containerRef}
+      onScroll={handleScroll}
+      className="fixed inset-0 z-50 overflow-y-auto bg-[#050507] text-zinc-100 selection:bg-amber-500/20 selection:text-amber-400 animate-reading-sheet"
+    >
+      {/* Top Reading Progress Bar */}
+      <div className="sticky top-0 z-50 h-[2px] w-full bg-white/[0.03]">
+        <div
+          className="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-200 shadow-[0_0_8px_rgba(245,158,11,0.8)] transition-all duration-75"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
       {/* Top Floating Glass Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-[#050507]/80 backdrop-blur-2xl px-4 sm:px-8 py-3.5 flex items-center justify-between">
+      <nav className="sticky top-[2px] z-50 bg-[#050507]/80 backdrop-blur-2xl px-4 sm:px-8 py-3.5 flex items-center justify-between">
         <button
           onClick={onClose}
           className="flex items-center space-x-2 text-xs font-mono text-zinc-400 hover:text-amber-400 transition-all borderless-pill ring-1 ring-white/[0.06] hover:ring-amber-500/30 px-3 py-1.5 cursor-pointer group"

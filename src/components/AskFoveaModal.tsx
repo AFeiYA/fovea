@@ -5,22 +5,22 @@ import { useApp } from "@/context/AppContext";
 import { Eye, X, Send, Sparkles, Terminal } from "lucide-react";
 
 export const AskFoveaModal: React.FC = () => {
-  const { activeChatSignal, closeAskFovea, language, t } = useApp();
+  const { isAskFoveaOpen, activeChatSignal, closeAskFovea, language, t } = useApp();
   const [question, setQuestion] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const [conversation, setConversation] = useState<
     Array<{ role: "user" | "fovea"; content: string }>
   >([]);
 
-  if (!activeChatSignal) return null;
+  if (!isAskFoveaOpen) return null;
 
   const isZh = language === "zh";
-  const title = isZh
-    ? activeChatSignal.titleZh || activeChatSignal.title
-    : activeChatSignal.title;
-  const whyItMatters = isZh
-    ? activeChatSignal.whyItMattersZh || activeChatSignal.whyItMatters
-    : activeChatSignal.whyItMatters;
+  const title = activeChatSignal
+    ? (isZh ? activeChatSignal.titleZh || activeChatSignal.title : activeChatSignal.title)
+    : (isZh ? "全局超智能态势与前沿观测" : "Global Frontier & Superintelligence Telemetry");
+  const whyItMatters = activeChatSignal
+    ? (isZh ? activeChatSignal.whyItMattersZh || activeChatSignal.whyItMatters : activeChatSignal.whyItMatters)
+    : (isZh ? "物理互联极限、推理自律性、万卡集群能源壁垒的宏观演变趋势。" : "Macro evolution of interconnect latency, reasoning autonomy, and gigawatt compute clusters.");
 
   const handleAsk = async (queryText: string) => {
     if (!queryText.trim()) return;

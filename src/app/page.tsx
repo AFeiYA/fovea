@@ -148,6 +148,7 @@ export default function Home() {
           signals={signals}
           onSwitchToFeed={() => switchModeWithWarp("feed")}
         />
+        <AskFoveaModal />
       </>
     );
   }

@@ -11,7 +11,8 @@ interface AppContextType {
   toggleLanguage: () => void;
   t: (key: string) => string;
   activeChatSignal: SignalItem | null;
-  openAskFovea: (item: SignalItem) => void;
+  isAskFoveaOpen: boolean;
+  openAskFovea: (item?: SignalItem | null) => void;
   closeAskFovea: () => void;
 }
 
@@ -162,6 +163,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [language, setLanguage] = useState<Language>("zh");
   const [activeChatSignal, setActiveChatSignal] = useState<SignalItem | null>(null);
+  const [isAskFoveaOpen, setIsAskFoveaOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("fovea_theme") as "dark" | "light" | null;
@@ -218,12 +220,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     return entry[language] || entry["en"] || key;
   };
 
-  const openAskFovea = (item: SignalItem) => {
-    setActiveChatSignal(item);
+  const openAskFovea = (item?: SignalItem | null) => {
+    setActiveChatSignal(item || null);
+    setIsAskFoveaOpen(true);
   };
 
   const closeAskFovea = () => {
     setActiveChatSignal(null);
+    setIsAskFoveaOpen(false);
   };
 
   return (
@@ -236,6 +240,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         toggleLanguage,
         t,
         activeChatSignal,
+        isAskFoveaOpen,
         openAskFovea,
         closeAskFovea,
       }}

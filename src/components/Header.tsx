@@ -3,6 +3,7 @@
 import React from "react";
 import { Sun, Moon, Languages, Eye, Sparkles, Orbit } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import { AudioVisualizerButton } from "@/components/observatory/AudioVisualizerButton";
 
 interface HeaderProps {
   activeTab: "latest" | "signals" | "weekly" | "about";
@@ -45,6 +46,9 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Language & Theme Controls */}
           <div className="flex items-center space-x-2 self-end sm:self-auto">
+            {/* Tactile Audio Synth Visualizer Toggle */}
+            <AudioVisualizerButton isZh={language === "zh"} />
+
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
