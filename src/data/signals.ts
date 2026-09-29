@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1790684842283-w5lq",
+    "title": "GPT-6 Astra Benchmarks Signal Continued Scaling Efficiency and Intent Alignment",
+    "titleZh": "GPT-6 Astra 基准测试显示出持续的规模扩展效率与意图对齐提升",
+    "summary": "Basis completes a 50-tab tax workbook twice as fast using GPT-6 Astra compared to GPT-5.6 Sol.",
+    "summaryZh": "Basis 使用 GPT-6 Astra 完成 50 页税务工作簿的速度比 GPT-5.6 Sol 快两倍。",
+    "whyItMatters": "Demonstrates rapid generational compounding in real-world complex task execution, signaling that frontier models continue to climb capability curves toward autonomous economic agency.",
+    "whyItMattersZh": "展示了前沿模型在复杂现实任务执行中的代际快速复合增长，表明模型正朝着自主经济代理的路径稳步攀升。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/basis-tax-workbook-with-astra",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-09-29T12:27:22.283Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS",
+      "REASONING"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1790442721767-hgwu",
     "title": "Jev: Zero-Shot Calibration Reinforcement Learning for AI Alignment Failure Detection",
     "titleZh": "Jev：基于强化学习与校准决策的零样本AI对齐失效检测器",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-09-26T17:12:01.767Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
@@ -38,8 +61,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-09-26T17:12:01.768Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS"
