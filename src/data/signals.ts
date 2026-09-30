@@ -2,6 +2,28 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1790770260655-gl73",
+    "title": "GPT-6.1 Sol: Redefining Frontier Capability Economics",
+    "titleZh": "GPT-6.1 Sol：重新定义前沿智能的经济学边界",
+    "summary": "OpenAI introduces GPT-6.1 Sol, delivering near-Astra intelligence for advanced coding and professional work at a fraction of standard API token prices.",
+    "summaryZh": "OpenAI推出GPT-6.1 Sol，以极低的价格提供接近Astra级别的专业代码与复杂任务处理智能。",
+    "whyItMatters": "Substantial cost reduction at the frontier model tier accelerates autonomous economic deployment and recursive self-improvement loops essential for superintelligence scaling.",
+    "whyItMattersZh": "前沿模型成本的大幅下降加速了自主智能体的经济部署，为通往超智能的规模化递归迭代奠定了现实基础。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-09-30T12:11:00.655Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1790684842283-w5lq",
     "title": "GPT-6 Astra Benchmarks Signal Continued Scaling Efficiency and Intent Alignment",
     "titleZh": "GPT-6 Astra 基准测试显示出持续的规模扩展效率与意图对齐提升",
@@ -15,8 +37,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-09-29T12:27:22.283Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS",
