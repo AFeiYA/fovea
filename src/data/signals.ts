@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1790858816923-hv9m",
+    "title": "The Endless Exam: Benchmarking Beyond the Published Frontier",
+    "titleZh": "无尽的考试：超越已发表前沿的数学建构基准",
+    "summary": "A new benchmark introduces parameterized families of mathematical construction problems designed to test reasoning progress beyond existing publication frontiers.",
+    "summaryZh": "引入了一个跨越十四个参数化数学建构问题族的全新基准，用于测试超越现有已发表前沿的推理进展。",
+    "whyItMatters": "Validates autonomous generation of novel mathematical proofs and constructions, acting as a critical litmus test for self-improving superintelligent reasoning systems.",
+    "whyItMattersZh": "验证了新数学证明与建构的自主生成能力，是通往具备自我改进能力的超智能推理系统的关键试金石。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2609.24555",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-01T12:46:56.923Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1790770260655-gl73",
     "title": "GPT-6.1 Sol: Redefining Frontier Capability Economics",
     "titleZh": "GPT-6.1 Sol：重新定义前沿智能的经济学边界",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-09-30T12:11:00.655Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS"
