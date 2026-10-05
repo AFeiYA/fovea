@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1791208985024-izaf",
+    "title": "A Model Guide for the GPT-6 Family: Productionizing Dynamic Reasoning Scale",
+    "titleZh": "GPT-6家族模型指南：将动态推理规模推向生产化部署",
+    "summary": "OpenAI outlines the integration guidelines for the GPT-6 model family, focusing on tunable reasoning effort and multi-tool coordination.",
+    "summaryZh": "OpenAI发布GPT-6系列模型指南，重点探讨了可调节推理算力及多工具协同的生产级落地路径。",
+    "whyItMatters": "The shift toward customizable reasoning effort in frontier architectures like GPT-6 marks a critical transition from static token prediction to controllable, compute-intensive runtime reasoning, a core pillar of scaling Superintelligence.",
+    "whyItMattersZh": "以GPT-6为代表的前沿架构向可定制推理力度的转变，标志着从静态Token预测向可控、高算力运行时推理的关键跨越，是通往超智能的核心支柱。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/practical-guide-building-gpt-6",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-10-05T14:03:05.024Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS",
+      "REASONING"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1790858816923-hv9m",
     "title": "The Endless Exam: Benchmarking Beyond the Published Frontier",
     "titleZh": "无尽的考试：超越已发表前沿的数学建构基准",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-01T12:46:56.923Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
