@@ -2,6 +2,52 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1791291745081-rlg9",
+    "title": "Latent Reasoning with Flow Matching: Breaking the Token Bottleneck",
+    "titleZh": "基于流匹配的潜在推理：打破语言模型的Token思维瓶颈",
+    "summary": "Explores continuous latent reasoning paradigms where models perform internal thought processes without full linguistic token verbalization.",
+    "summaryZh": "探讨了连续潜在推理范式，使模型能够在不进行完整语言Token显式输出的情况下执行内部思考过程。",
+    "whyItMatters": "Shifting reasoning from discrete token generation to continuous latent spaces unlocks non-linear time-expansion and recursive compute scaling, essential for autonomous Superintelligence.",
+    "whyItMattersZh": "将推理从离散的Token生成转向连续的潜在空间，解锁了非线性的时间扩展和递归计算缩放，这是通往自主超智能的关键所在。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.06666",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-06T13:02:25.081Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
+    "id": "sig-1791291745081-5lnh",
+    "title": "Loop Flow Transformers: Scaling Compute via Recurrent Weight Sharing",
+    "titleZh": "循环流变压器（LiFT）：通过循环权重共享实现计算密度的指数级扩展",
+    "summary": "Introduces Loop Flow Transformers (LiFT), scaling model computation through repeated application of a shared DiT core trained with straight-path regression targets.",
+    "summaryZh": "引入了循环流变压器（LiFT），通过重复应用共享的DiT核心（以直线回归目标训练），实现模型计算密度的动态扩展。",
+    "whyItMatters": "Dynamic parameter reuse and recurrent compute expansion bypass traditional static inference limits, enabling high-intensity autonomous reasoning within bounded hardware footprints.",
+    "whyItMattersZh": "动态参数复用与循环计算扩展绕过了传统的静态推理限制，能够在有限的硬件占地内实现高强度的自主推理。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.05538",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-06T13:02:25.081Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS",
+      "COMPUTE"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1791208985024-izaf",
     "title": "A Model Guide for the GPT-6 Family: Productionizing Dynamic Reasoning Scale",
     "titleZh": "GPT-6家族模型指南：将动态推理规模推向生产化部署",
@@ -15,8 +61,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-10-05T14:03:05.024Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS",
