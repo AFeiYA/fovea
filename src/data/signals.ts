@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1791464697101-w9mh",
+    "title": "Frontier Mathematical Reasoning and Formal Verification",
+    "titleZh": "前沿数学推理与形式化验证突破",
+    "summary": "OpenAI publishes internal frontier model results tackling open problems in mathematics, complete with formal Lean proof assistants on GitHub.",
+    "summaryZh": "OpenAI公布了内部前沿模型在数学开放性问题上的突破性成果，并在GitHub上开源了Lean形式化证明。",
+    "whyItMatters": "Autonomous generation of verifiable mathematical proofs marks a critical transition from statistical pattern matching to rigorous, self-correcting formal reasoning—an essential foundational capability for recursive self-improvement toward Superintelligence.",
+    "whyItMattersZh": "自主生成可验证的数学证明，标志着模型从统计模式匹配向严谨、自我纠错的形式化推理迈出关键一步，这是通往超智能递归自我改进的核心基础能力。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-10-08T13:04:57.101Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1791291745081-rlg9",
     "title": "Latent Reasoning with Flow Matching: Breaking the Token Bottleneck",
     "titleZh": "基于流匹配的潜在推理：打破语言模型的Token思维瓶颈",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-06T13:02:25.081Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
@@ -38,8 +61,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-06T13:02:25.081Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS",
@@ -430,29 +453,6 @@ export const INITIAL_SIGNALS: SignalItem[] = [
     "tags": [
       "MODELS",
       "COMPUTE"
-    ],
-    "weeklyPick": false
-  },
-  {
-    "id": "sig-007",
-    "title": "PJM Interconnection Reports Over 40 Gigawatts of Dedicated AI Data Center Grid Queues Across Rust Belt",
-    "titleZh": "PJM 电网互联报告显示：美铁锈地带超 40 吉瓦专用 AI 数据中心排队申请并网",
-    "summary": "Regional transmission grid operators scramble to accommodate unprecedented industrial load forecasts driven by clustered AI mega-campuses.",
-    "summaryZh": "区域电网运营商正全力应对前所未有的工业负荷激增，AI 超级园区的电力需求正在重绘区域输电网规划。",
-    "whyItMatters": "The physical geography of intelligence is shifting toward proximity to high-voltage transmission lines, cooling rivers, and nuclear/gas reserves. SI development is reshaping regional infrastructure planning faster than the EV transition.",
-    "whyItMattersZh": "智能的物理地理学正在重塑——超算中心正向特高压输电走廊、冷却水源及核电/天然气枢纽加速聚拢。超智能的重资产属性正在以快于电动汽车转型的速度改造现实能源图谱。",
-    "source": {
-      "name": "Financial Times",
-      "url": "https://www.ft.com",
-      "domain": "ft.com"
-    },
-    "timestamp": "2026-09-22T09:10:00Z",
-    "dateLabel": "SEP 22",
-    "dateLabelZh": "9月22日",
-    "isSignal": false,
-    "tags": [
-      "ENERGY",
-      "INFRASTRUCTURE"
     ],
     "weeklyPick": false
   }
