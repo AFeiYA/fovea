@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1792062582476-bvkf",
+    "title": "SwarmRSI: Operationalizing Recursive Self-Improvement via Evolving Scientific Swarms",
+    "titleZh": "SwarmRSI：通过演化科学智能体集群将「递归自我改进」工程化",
+    "summary": "SwarmRSI introduces an architecture for recursive self-improvement in autonomous scientific discovery, coordinating agent swarms that iteratively cross-validate evidence, refine empirical hypotheses, and advance experimental capabilities.",
+    "summaryZh": "SwarmRSI 提出了面向自主科学发现的递归自我改进（RSI）框架，通过跨路径证据融合与演化智能体集群，实现科研实验能力的自主闭环迭代升级。",
+    "whyItMatters": "Recursive self-improvement (RSI) is the definitive catalyst for an intelligence explosion; operationalizing RSI within open-ended empirical research shifts superintelligence development from static human-supervised pretraining to autonomous scientific compounding.",
+    "whyItMattersZh": "递归自我改进（RSI）是触发智能爆炸的基石机制；将 RSI 从狭义的代码自优化推进至具备假设迭代与实证闭环的科学智能体演化，标志着系统正在突破静态人工训练瓶颈，迈向自主研发型超智能。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.20431",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-15T11:09:42.476Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1791464697101-w9mh",
     "title": "Frontier Mathematical Reasoning and Formal Verification",
     "titleZh": "前沿数学推理与形式化验证突破",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-10-08T13:04:57.101Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
@@ -432,28 +455,5 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "REASONING"
     ],
     "weeklyPick": true
-  },
-  {
-    "id": "sig-006",
-    "title": "DeepSeek Architectures Challenge Closed Frontiers with Multi-Head Latent Attention and High-Throughput FP8 Training",
-    "titleZh": "DeepSeek 架构突破：多头潜在注意力（MLA）与高吞吐 FP8 训练大幅压缩闭源壁垒",
-    "summary": "Open research paper details architectural modifications that compress KV-cache memory overhead by 80% while retaining full contextual reasoning fidelity.",
-    "summaryZh": "开源论文详述了新型注意力架构，在保留完整长上下文推理保真度的同时，将显存 KV-Cache 占用骤降 80%，显著降低前沿大模型推理成本。",
-    "whyItMatters": "Demonstrates that the path to SI is not purely an expenditure war of capital expenditure (CapEx). Algorithmic compression and novel attention topologies can unlock radical efficiency, preventing frontier intelligence from becoming an impenetrable closed-monopoly.",
-    "whyItMattersZh": "这有力证明了通往超智能的路径并非只有资本支出（CapEx）这一场残酷的消耗战。算法拓扑的精简与数学压缩同样能激发超额效能，打破超智能被极少数寡头封闭垄断的宿命。",
-    "source": {
-      "name": "DeepSeek AI",
-      "url": "https://github.com/deepseek-ai",
-      "domain": "github.com"
-    },
-    "timestamp": "2026-09-23T16:40:00Z",
-    "dateLabel": "SEP 23",
-    "dateLabelZh": "9月23日",
-    "isSignal": false,
-    "tags": [
-      "MODELS",
-      "COMPUTE"
-    ],
-    "weeklyPick": false
   }
 ];
