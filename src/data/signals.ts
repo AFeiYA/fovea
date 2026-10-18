@@ -2,6 +2,28 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1792319914134-j4uf",
+    "title": "LeanPRM: Grounding Natural Language Process Supervision in Formal Proof Engines",
+    "titleZh": "LeanPRM：将自然语言过程监督锚定于形式化证明引擎",
+    "summary": "LeanPRM provides a scalable mechanism to generate step-level correctness labels directly from the Lean formal proof assistant, bypassing the human annotation bottleneck for training natural language Process Reward Models (PRMs).",
+    "summaryZh": "LeanPRM 通过 Lean 形式化定理证明器自动化生成逐步逻辑正确性标签，突破了训练自然语言过程奖励模型（PRM）依赖昂贵人工标注的核心瓶颈。",
+    "whyItMatters": "Unbounded reasoning time-expansion and recursive self-improvement are constrained by verification bottlenecks and reward hacking in open-ended natural language. Anchoring continuous process supervision to mathematically rigorous formal logic kernels enables verifiable, superhuman synthetic self-training without human oversight.",
+    "whyItMattersZh": "测试时推理时间扩展与递归自我提升的根本约束在于自然语言推理中的奖励黑客与验证瓶颈。将逐步过程监督锚定于形式化逻辑内核，为超人类数学发现与长程推理扩展构建了零人类干预、抗幻觉的确定性强化学习飞轮。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.17697",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-18T10:38:34.134Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1792062582476-bvkf",
     "title": "SwarmRSI: Operationalizing Recursive Self-Improvement via Evolving Scientific Swarms",
     "titleZh": "SwarmRSI：通过演化科学智能体集群将「递归自我改进」工程化",
@@ -15,8 +37,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-15T11:09:42.476Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
@@ -431,28 +453,6 @@ export const INITIAL_SIGNALS: SignalItem[] = [
     "tags": [
       "COMPUTE",
       "INFRASTRUCTURE"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-005",
-    "title": "Frontier Mathematical Agent Proves Long-Standing Open Combinatorics Lemma in Lean 4 Without Human Hints",
-    "titleZh": "前沿数学智能体在 Lean 4 中实现突破：无人类提示下自主证明 20 年未解组合数学引理",
-    "summary": "Using monte-carlo tree search over formalized proof tactics, an autonomous agent generated a verified proof for a 20-year-old conjecture in extremal graph theory.",
-    "summaryZh": "通过在形式化证明战术空间中运用蒙特卡洛树搜索与自我博弈，自主数学智能体成功为极值图论中一个沉寂 20 年的猜想给出了计算机全量验证的严谨证明。",
-    "whyItMatters": "Superintelligence begins when AI produces novel synthetic science that human mathematicians cannot easily refute or conceive. Verified formal reasoning bridges the trust gap, paving the way for autonomous automated scientific discovery.",
-    "whyItMattersZh": "当智能体开始产出人类顶尖科学家难以轻易构想或推演的合成科学成果时，超智能的序幕已然拉开。可形式化验证的推理跨越了“幻觉信赖度”的鸿沟，为完全自主化的科学探索铺平了道路。",
-    "source": {
-      "name": "arXiv Formal Math",
-      "url": "https://arxiv.org",
-      "domain": "arxiv.org"
-    },
-    "timestamp": "2026-09-24T14:05:00Z",
-    "dateLabel": "SEP 24",
-    "dateLabelZh": "9月24日",
-    "isSignal": true,
-    "tags": [
-      "REASONING"
     ],
     "weeklyPick": true
   }
