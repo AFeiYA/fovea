@@ -2,6 +2,52 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1792926364375-rymx",
+    "title": "Wafer-Scale Architecture Bypasses Distributed GPU Interconnect Bottlenecks at Trillion-Parameter Scale",
+    "titleZh": "晶圆级计算架构攻克万亿参数前沿模型互联延迟瓶颈",
+    "summary": "Cerebras demonstrates operational deployment of trillion-parameter frontier models on its Wafer-Scale Engine, bypassing the cross-node interconnect and memory bandwidth choke points inherent in traditional GPU clusters.",
+    "summaryZh": "Cerebras验证了在其晶圆级芯片集群上部署万亿参数前沿模型的能力，绕开传统GPU集群跨节点网络与片外显存带宽的物理瓶颈。",
+    "whyItMatters": "As frontier reasoning architectures scale toward multi-trillion parameters, inter-GPU networking latency and memory access latency form the primary scaling ceiling. Wafer-scale compute proves an alternative hardware paradigm capable of sustaining massive bandwidth and near-zero latency essential for Superintelligence-scale inference and test-time compute.",
+    "whyItMattersZh": "当超智能模型参数迈向数万亿并在测试时推理解算中消耗巨大带宽时，传统分布式GPU集群的互联网络与片外显存成为根本瓶颈。晶圆级片上通信与超大SRAM池打破了这一限制，为支撑ASI级推演提供了全新的硬件演进路径。",
+    "source": {
+      "name": "cerebras.ai",
+      "url": "https://www.cerebras.ai/blog/how-we-deploy-trillion-parameter-frontier-models-on-cerebras",
+      "domain": "cerebras.ai"
+    },
+    "timestamp": "2026-10-25T11:06:04.375Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "COMPUTE",
+      "INFRASTRUCTURE"
+    ],
+    "weeklyPick": true
+  },
+  {
+    "id": "sig-1792926364375-o7jz",
+    "title": "Frontier Labs Transition to High-Containment Air-Gapped Enclaves for Next-Gen Model Training",
+    "titleZh": "前沿实验室开启国防级物理隔离：下一代模型训练全面进入高围栏封锁",
+    "summary": "OpenAI details its fortified containment architecture for frontier model training and evaluation, incorporating fully offline environments, restricted execution boundaries, and high-compute red-teaming.",
+    "summaryZh": "OpenAI披露了用于前沿模型训练与评估的加固遏制架构，全面引入离线隔离环境、严格执行边界与高算力红队对抗评估机制。",
+    "whyItMatters": "Securing model weights, algorithmic checkpoints, and proto-reasoning engines inside air-gapped enclaves marks the inflection point where frontier AI shifts from commercial software development to defense-grade biosecurity-level containment, addressing existential risks of premature autonomous exfiltration and weight theft.",
+    "whyItMattersZh": "将核心模型权重、训练检查点及原型推理引擎封锁在离线物理隔离舱内，标志着前沿AI研发正式从普通商业级云基础设施演进为国防级的严密物理管控，直接应对超智能前夜的模型权重被窃与自主逃逸风险。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/securing-our-frontier-model-training-environment",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-10-25T11:06:04.375Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "GOVERNANCE",
+      "INFRASTRUCTURE"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1792319914134-j4uf",
     "title": "LeanPRM: Grounding Natural Language Process Supervision in Formal Proof Engines",
     "titleZh": "LeanPRM：将自然语言过程监督锚定于形式化证明引擎",
@@ -15,8 +61,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-18T10:38:34.134Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING"
@@ -407,52 +453,6 @@ export const INITIAL_SIGNALS: SignalItem[] = [
     "tags": [
       "ENERGY",
       "COMPUTE"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-003",
-    "title": "Trump Frames National AI Policy Around 'Super Intelligence (SI)' Supremacy and Accelerated Energy Deregulation",
-    "titleZh": "川普将国家战略定调为「超智能（SI）」霸权，承诺对吉瓦级能源基建实行全面监管松绑",
-    "summary": "In a major policy address, former president explicitly moves beyond 'AI' nomenclature, declaring the era of 'SI' and promising fast-tracked permits for gigawatt power pipelines.",
-    "summaryZh": "在重要政策演讲中，川普明确弃用传统的「AI」称谓，定调当下已进入「SI（超智能）」时代，并承诺为吉瓦级能源与超算走廊设立极速特批绿色通道。",
-    "whyItMatters": "The political lexicon has officially caught up with technological reality: AI is no longer categorized as an enterprise software productivity tool, but as state-level civilizational power. Framing the competition as 'SI' signals that governments view this as a Manhattan Project-scale geopolitical imperative.",
-    "whyItMattersZh": "政治话语体系已正式追赶上技术演进的真实烈度：这不再是一款提高写代码或画图效率的软件应用，而是大国之间的文明级力量角逐。将竞争定性为「SI」，意味着全球顶层决策圈已将其等同于曼哈顿工程级别的国家战略核心。",
-    "source": {
-      "name": "Bloomberg",
-      "url": "https://www.bloomberg.com",
-      "domain": "bloomberg.com"
-    },
-    "timestamp": "2026-09-25T08:45:00Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
-      "GOVERNANCE",
-      "ENERGY"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-004",
-    "title": "First GB200 NVL72 Rack-Scale Systems Begin Hyperscale Deployments, Delivering 1.4 Exaflops of FP4 Compute",
-    "titleZh": "首批 GB200 NVL72 柜级超算系统启动超大规模部署，单柜提供 1.4 Exaflops FP4 算力",
-    "summary": "Liquid-cooled 72-GPU racks operating over a single 130 TB/s NVLink domain transition the cluster from loosely coupled nodes into a unified monolithic computing fabric.",
-    "summaryZh": "采用全水冷设计的 72 颗 GPU 机柜通过单域 130 TB/s 的 NVLink 5 互联，将整个算力集群从松散的服务器节点聚合为单一单体计算中枢。",
-    "whyItMatters": "Communication latency between individual chips was the primary bottleneck to training multi-trillion parameter systems. NVLink 5 turns entire data hall racks into a single synthetic brain, dissolving the boundary between internal memory and network interconnect.",
-    "whyItMattersZh": "芯片之间的通信延迟曾是训练多万亿参数超脑的致命瓶颈。NVLink 5 使得整排机柜能够如同单一合成大脑般协同吞吐，内存墙与网络通信的界限正在被彻底消解。",
-    "source": {
-      "name": "NVIDIA Technical Blog",
-      "url": "https://developer.nvidia.com/blog",
-      "domain": "nvidia.com"
-    },
-    "timestamp": "2026-09-24T18:20:00Z",
-    "dateLabel": "SEP 24",
-    "dateLabelZh": "9月24日",
-    "isSignal": false,
-    "tags": [
-      "COMPUTE",
-      "INFRASTRUCTURE"
     ],
     "weeklyPick": true
   }
