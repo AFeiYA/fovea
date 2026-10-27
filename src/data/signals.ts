@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1793101996215-76w8",
+    "title": "OpenAI Pushes Frontier Reasoning into Unsolved Math and Theoretical Physics",
+    "titleZh": "OpenAI 将前沿推理模型推向数理极限：涉足挂谷猜想、指数时间假设与量子色动力学",
+    "summary": "OpenAI releases novel model results on long-standing open problems including the Kakeya conjecture, Exponential Time Hypothesis, and quantum chromodynamics, opening them up for academic verification.",
+    "summaryZh": "OpenAI 公布前沿模型在挂谷猜想、指数时间假设（ETH）以及量子色动力学等深层未解科学问题上的实质性结果，并面向学术界开放验证途径。",
+    "whyItMatters": "The definitive demarcation line between generic generative AI and Superintelligence is autonomous epistemic expansion—generating verifiable, non-trivial breakthroughs on open mathematical conjectures and theoretical physics rather than merely interpolating human training corpora.",
+    "whyItMattersZh": "通用 AI 与超智能（SI）的本质分水岭在于是否具备拓展人类认知边界的自主科学发现能力；前沿模型开始在纯粹数学猜想与基础物理未解难题上输出具有验证价值的实质结构，标志着机器智能正式迈入自主科学发现的临界点。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/building-scientific-understanding-with-academic-communities",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-10-27T11:53:16.215Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1792926364375-rymx",
     "title": "Wafer-Scale Architecture Bypasses Distributed GPU Interconnect Bottlenecks at Trillion-Parameter Scale",
     "titleZh": "晶圆级计算架构攻克万亿参数前沿模型互联延迟瓶颈",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "cerebras.ai"
     },
     "timestamp": "2026-10-25T11:06:04.375Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "COMPUTE",
@@ -38,8 +61,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-10-25T11:06:04.375Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "GOVERNANCE",
@@ -430,29 +453,6 @@ export const INITIAL_SIGNALS: SignalItem[] = [
     "tags": [
       "REASONING",
       "MODELS"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-002",
-    "title": "Constellation Energy Inks 20-Year PPA with Microsoft to Reopen Three Mile Island Nuclear Unit 1 for AI Compute",
-    "titleZh": "星座能源与微软签署 20 年购电协议：重启三哩岛 1 号核电机组独供 AI 算力集群",
-    "summary": "An 835-megawatt nuclear plant will be recommissioned exclusively to supply 24/7 carbon-free baseload electricity directly to hyperscale AI clusters.",
-    "summaryZh": "一座容量达 835 兆瓦的核电站将重新并网，全天候 24 小时零碳基荷电力将以专属管线直接注入超大规模 AI 数据中心。",
-    "whyItMatters": "Superintelligence is colliding with fundamental physics and thermodynamics. Frontier compute is no longer constrained by algorithmic ingenuity or chip manufacturing alone, but by gigawatt-scale power generation. Dedicated nuclear infrastructure establishes compute as critical sovereign physical assets.",
-    "whyItMattersZh": "超智能的发展正与物理学及热力学底层定律发生剧烈碰撞。前沿算力的制约瓶颈已不再仅仅是算法精妙度或芯片产能，而是吉瓦级的发电与输电能力。专属核能基建的介入，标志着算力已被视为关乎文明存续的国家级实体主权资产。",
-    "source": {
-      "name": "Reuters",
-      "url": "https://www.reuters.com",
-      "domain": "reuters.com"
-    },
-    "timestamp": "2026-09-25T11:15:00Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
-      "ENERGY",
-      "COMPUTE"
     ],
     "weeklyPick": true
   }
