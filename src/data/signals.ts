@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1793190903985-c1gj",
+    "title": "Automated Theorem Proving via the Bitter Lesson",
+    "titleZh": "基于苦涩教训的自动定理证明突破",
+    "summary": "Investigating whether simple agentic loops can replace human-designed workflows in formal theorem proving following the bitter lesson of scaling.",
+    "summaryZh": "探讨在形式化定理证明中，是否可以通过简单的智能体循环替代人工设计的复杂工作流以遵循扩展的苦涩教训。",
+    "whyItMatters": "Advancing formal mathematical verification through autonomous agentic loops is a vital milestone for eliminating human bottlenecks in self-improving superintelligent reasoning architectures.",
+    "whyItMattersZh": "通过自主智能体循环推进形式化数学验证，是消除自改进超智能推理架构中人类瓶颈的关键里程碑。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.35962",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-28T12:35:03.985Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1793101996215-76w8",
     "title": "OpenAI Pushes Frontier Reasoning into Unsolved Math and Theoretical Physics",
     "titleZh": "OpenAI 将前沿推理模型推向数理极限：涉足挂谷猜想、指数时间假设与量子色动力学",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-10-27T11:53:16.215Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
@@ -432,28 +455,5 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "MODELS"
     ],
     "weeklyPick": false
-  },
-  {
-    "id": "sig-001",
-    "title": "OpenAI Unveils Test-Time Compute Scaling Laws: Models Deliberate to Solve Unseen PhD-Level Conjectures",
-    "titleZh": "OpenAI 揭秘测试期计算（Test-Time Compute）扩展定律：模型通过自主深度思考攻克未见之博士级猜想",
-    "summary": "Empirical results prove that extending inference-time deliberation yields logarithmic performance gains on benchmark frontiers, outpacing brute-force pretraining.",
-    "summaryZh": "实证研究表明，在推理阶段延长模型思考时间的算力扩展，可在前沿基准上带来对数级的性能跃升，其边际回报已显著超越单纯依靠预训练的暴力堆砌。",
-    "whyItMatters": "This marks the formal architectural pivot from static next-token prediction to autonomous cognitive exploration. Models are no longer simply regurgitating training distributions; they are navigating problem spaces through self-correction and internal verification—the defining hallmark of proto-Superintelligence.",
-    "whyItMattersZh": "这标志着底层范式从「静态的下一词预测」正式转向「自主的认知空间探索」。模型不再只是机械反刍训练语料分布，而是能够通过自我反思与内部验证来搜索未知解空间——这是迈向原始超智能（Proto-SI）的决定性分水岭。",
-    "source": {
-      "name": "OpenAI Research",
-      "url": "https://openai.com/research",
-      "domain": "openai.com"
-    },
-    "timestamp": "2026-09-25T14:30:00Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
-      "REASONING",
-      "MODELS"
-    ],
-    "weeklyPick": true
   }
 ];
