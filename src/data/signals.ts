@@ -2,6 +2,51 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1793447771496-qt1t",
+    "title": "Training Foundation Models with a Single Algorithm: Eliminating Algorithmic Pipelines",
+    "titleZh": "用单一算法训练基础模型：消除人工多阶段训练管线",
+    "summary": "Researchers demonstrate that pretraining, midtraining, SFT, and RL can be unified under a single maximum-likelihood fitting algorithm using model-generated target distributions.",
+    "summaryZh": "研究表明，通过将强化学习目标转化为对模型生成目标分布的最大似然拟合，预训练、中训练、监督微调和强化学习可以统一在单一算法下。",
+    "whyItMatters": "Unifying multi-stage training into a single iterative algorithm removes human-in-the-loop engineering bottlenecks, directly accelerating self-improvement loops essential for Superintelligence scaling.",
+    "whyItMattersZh": "将多阶段训练统一为单一迭代算法，消除了人在回路的工程瓶颈，直接加速了通往超智能所需的自我迭代优化闭环。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.40564",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-31T11:56:11.496Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS",
+      "REASONING"
+    ],
+    "weeklyPick": true
+  },
+  {
+    "id": "sig-1793447771496-7shg",
+    "title": "Proving the Platonic Representation Hypothesis: Mathematical Convergence of Frontier Models",
+    "titleZh": "证明柏拉图表征假说：前沿模型的多模态数学收敛性",
+    "summary": "This work proves the Platonic Representation Theorem, showing mathematically that Joint-Embedding Predictive Architectures converge to a shared universal world model as they scale.",
+    "summaryZh": "该工作证明了柏拉图表征定理，从数学上证明了联合嵌入预测架构在规模化时必然会收敛到共享的通用世界模型。",
+    "whyItMatters": "Mathematical proof of the Platonic Representation Hypothesis guarantees that independent intelligence architectures converge onto a singular, optimal objective description of reality, foundational for Superintelligence unification.",
+    "whyItMattersZh": "柏拉图表征假说的数学证明确保了独立智能架构必然收敛于对现实的单一最优客观描述，这是实现超智能归一的基石。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2610.39302",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-10-31T11:56:11.496Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1793190903985-c1gj",
     "title": "Automated Theorem Proving via the Bitter Lesson",
     "titleZh": "基于苦涩教训的自动定理证明突破",
@@ -15,8 +60,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-28T12:35:03.985Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "REASONING",
@@ -409,51 +454,5 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "MODELS"
     ],
     "weeklyPick": true
-  },
-  {
-    "id": "sig-1790354544216-rgyx",
-    "title": "Rufus-Air: An Open LLM Post-Training Recipe for 106B Models Across Eight Reasoning Stages",
-    "titleZh": "Rufus-Air 开源后训练配方：106B 模型八阶段强化学习与自主推理全流程复现",
-    "summary": "A fully open and reproducible post-training pipeline for GLM-4.5-Air-Base (106B), detailing SFT, Reasoning Reinforcement Learning, Code Synthesis, and cognitive alignment.",
-    "summaryZh": "全流程开源可复现的 106B 基座后训练方案，完整公开了涵盖 SFT、推理强化学习（Reasoning RL）与认知对齐的八阶段工业级训练流水线。",
-    "whyItMatters": "Shatters the closed-lab monopoly on o1-like reasoning reinforcement learning recipes. By making the multi-stage reasoning RL pipeline open, it allows the broader community to inspect and accelerate long-horizon self-deliberation dynamics without billion-dollar gatekeeping.",
-    "whyItMattersZh": "打破了闭源实验室对 o1-like 推理强化学习（Reasoning RL）核心配方的黑盒封锁。通过全流程开源，使得学术界和开源社区能够低成本自主复现并加速长链条推理演化过程。",
-    "source": {
-      "name": "arXiv / HuggingFace",
-      "url": "https://arxiv.org/abs/2609.29421",
-      "domain": "arxiv.org"
-    },
-    "timestamp": "2026-09-26T00:42:24Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
-      "REASONING",
-      "MODELS"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-1790354544217-tuur",
-    "title": "Neural Spectral Capacity: Designing Architectures from Network Specification Alone",
-    "titleZh": "神经谱容量理论：仅凭网络拓扑规格即可预先度量与设计 Transformer 架构表达极限",
-    "summary": "Spectral graph theory applied to network topology calculates representational expressivity directly from specifications, bypassing millions of GPU-hours of brute-force training trial-and-error.",
-    "summaryZh": "引入谱图理论度量架构信息吞吐与表达容量，摆脱了以往必须消耗数百万 GPU 时暴力训练才能评估新型注意力和架构优劣的经验主义瓶颈。",
-    "whyItMatters": "Shifts the design of synthetic neural architectures from empirical capital expenditure (FLOPs brute force) to rigorous mathematical topology priors, fundamentally accelerating the convergence rate of next-generation compute brains.",
-    "whyItMattersZh": "将超智能架构设计从高昂的资本试错（FLOPs 蛮力探索）转变为严谨的拓扑数学先验设计，极大加速了新型超算脑架构的收敛迭代效率。",
-    "source": {
-      "name": "arXiv / HuggingFace",
-      "url": "https://arxiv.org/abs/2609.23087",
-      "domain": "arxiv.org"
-    },
-    "timestamp": "2026-09-26T00:42:24Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": false,
-    "tags": [
-      "COMPUTE",
-      "MODELS"
-    ],
-    "weeklyPick": false
   }
 ];
