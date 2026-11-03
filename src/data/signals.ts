@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1793714006030-oro2",
+    "title": "OpenAI Grid Protectors Program: The Gigawatt Energy Bottleneck for Superintelligence",
+    "titleZh": "OpenAI电网保护者计划：通往超智能的吉瓦级能源瓶颈",
+    "summary": "OpenAI launches the Grid Protectors Program to partner with utilities, addressing massive power and cooling constraints for future compute campuses.",
+    "summaryZh": "OpenAI推出“电网保护者计划”以合作各电力公司，着手解决未来超大规模计算园区所面临的庞大电力与冷却约束瓶颈。",
+    "whyItMatters": "Scaling toward Superintelligence is fundamentally gated by multi-gigawatt power availability; securing grid reliability and utility integration marks a vital infrastructure prerequisite for autonomous scaling.",
+    "whyItMattersZh": "通往超智能的规模化演进本质上受阻于多吉瓦级的电力供给能力；保障电网可靠性与电力设施整合，是迈向自主规模化的关键基础设施先决条件。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/grid-protectors-program",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-11-03T13:53:26.030Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "ENERGY",
+      "INFRASTRUCTURE"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1793447771496-qt1t",
     "title": "Training Foundation Models with a Single Algorithm: Eliminating Algorithmic Pipelines",
     "titleZh": "用单一算法训练基础模型：消除人工多阶段训练管线",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-31T11:56:11.496Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS",
@@ -38,8 +61,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-10-31T11:56:11.496Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS"
@@ -429,29 +452,6 @@ export const INITIAL_SIGNALS: SignalItem[] = [
     "isSignal": true,
     "tags": [
       "REASONING"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-1790354544215-roif",
-    "title": "Your Transformer Can Hold Two Thoughts at Once: Evidence of Linear Superposition in LLMs",
-    "titleZh": "大模型线性叠加实证：Transformer 可在单一前向传播中同时容纳双重思考路径",
-    "summary": "While LLMs rely on non-linear activations, research demonstrates fundamental linearity in latent activations, allowing models to superimpose and process parallel semantic computations simultaneously.",
-    "summaryZh": "机制可解释性前沿研究证实，大模型内部激活空间存在基本线性叠加特性，能够在同一前向计算中解耦并并行处理多个语义子空间的独立思维计算。",
-    "whyItMatters": "Demonstrates that neural networks exhibit multi-threaded, parallel cognitive representations beneath discrete token outputs. This breaks traditional sequential-only assumptions, providing mechanistic evidence for deep latent-space implicit reasoning—a cornerstone of autonomous Superintelligence.",
-    "whyItMattersZh": "证明了神经网络在离散词表之下，潜伏着多线程并行认知与概念叠加的内部表征。这打破了传统单序列计算的假定，为模型实现深层潜空间隐式推理（Latent Reasoning）提供了理论基石。",
-    "source": {
-      "name": "arXiv / HuggingFace",
-      "url": "https://arxiv.org/abs/2609.29845",
-      "domain": "arxiv.org"
-    },
-    "timestamp": "2026-09-26T00:42:24Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
-      "REASONING",
-      "MODELS"
     ],
     "weeklyPick": true
   }
