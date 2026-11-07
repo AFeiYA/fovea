@@ -2,6 +2,30 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1794055431076-2p7u",
+    "title": "GPT-6 Cyber: Frontier Cybersecurity Agents and Dual-Use Alignment Limits",
+    "titleZh": "GPT-6 Cyber：前沿网络安全智能体与军民两用对齐边界",
+    "summary": "OpenAI introduces GPT-6 Cyber, a specialized cybersecurity model capable of discovering complex exploitable vulnerabilities while operating under strict authorization constraints.",
+    "summaryZh": "OpenAI推出GPT-6 Cyber网络安全模型，具备自主发现复杂漏洞并开发修复方案的能力，同时在授权范围内保持严格的安全对齐。",
+    "whyItMatters": "Autonomous vulnerability discovery by advanced systems marks a critical turning point toward recursive self-improvement and automated offensive/defensive capabilities, which are core milestones in the emergence of Superintelligence.",
+    "whyItMattersZh": "高级系统实现的自主漏洞挖掘，是通往递归自我改进和自动化攻防能力的关键转折点，这是超智能涌现的核心里程碑。",
+    "source": {
+      "name": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-cyber",
+      "domain": "openai.com"
+    },
+    "timestamp": "2026-11-07T12:43:51.077Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS",
+      "REASONING",
+      "GOVERNANCE"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1793714006030-oro2",
     "title": "OpenAI Grid Protectors Program: The Gigawatt Energy Bottleneck for Superintelligence",
     "titleZh": "OpenAI电网保护者计划：通往超智能的吉瓦级能源瓶颈",
@@ -15,8 +39,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-11-03T13:53:26.030Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "ENERGY",
@@ -432,27 +456,5 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "GOVERNANCE"
     ],
     "weeklyPick": false
-  },
-  {
-    "id": "sig-1790420601134-at7d",
-    "title": "From Problem-Solving to Conjecture: AI Learns to Quantify Mathematical Value",
-    "titleZh": "从解题到猜想：AI破局自律性数学价值发现",
-    "summary": "Researchers propose a framework enabling models to autonomously discover novel and mathematically significant conjectures rather than merely solving human-posed problems.",
-    "summaryZh": "该研究提出了使模型能够自主发现具重要数学价值的新猜想框架，推动AI从被动解题转向主动假说生成。",
-    "whyItMatters": "Superintelligence cannot rely indefinitely on human-generated ground truth; formal discovery requires models to learn intrinsic measures of 'interest' and novelty, unlocking closed-loop synthetic data generation and autonomous scientific discovery.",
-    "whyItMattersZh": "超智能无法永远依赖人类标注的真值标准；数学发现的核心瓶颈在于如何定义与量化‘有价值的研究方向’，此研究标志着自弈闭环从已知题库推演迈向未知科学假设的自主生成。",
-    "source": {
-      "name": "arXiv / HuggingFace",
-      "url": "https://arxiv.org/abs/2609.28603",
-      "domain": "arxiv.org"
-    },
-    "timestamp": "2026-09-26T11:03:21.134Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
-      "REASONING"
-    ],
-    "weeklyPick": true
   }
 ];
