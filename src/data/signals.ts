@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1794405965983-8zj0",
+    "title": "Sparsity Breakthrough: Zeroing <0.05% Weights Matches Full Fine-Tuning",
+    "titleZh": "稀疏性突破：仅修剪不到0.05%的权重即可媲美全量微调",
+    "summary": "Deleting fewer than 0.05% of a pretrained LLM's weights matches full fine-tuning across verification, SFT, and distillation regimes.",
+    "summaryZh": "研究发现，在强化学习、监督微调和蒸馏等后训练阶段，仅将预训练大模型中不到0.05%的权重清零即可达到全量微调的效果。",
+    "whyItMatters": "Demonstrates that post-training capability acquisition operates on extremely sparse structural levers, fundamentally altering how we optimize and scale cognitive architectures toward Superintelligence.",
+    "whyItMattersZh": "这证明了后训练能力的获得依赖于极度稀疏的结构杠杆，从根本上改变了我们向超智能扩展和优化认知架构的方式。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2611.10866",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-11-11T14:06:05.983Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "MODELS",
+      "REASONING"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1794055431076-2p7u",
     "title": "GPT-6 Cyber: Frontier Cybersecurity Agents and Dual-Use Alignment Limits",
     "titleZh": "GPT-6 Cyber：前沿网络安全智能体与军民两用对齐边界",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "openai.com"
     },
     "timestamp": "2026-11-07T12:43:51.077Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS",
@@ -434,27 +457,5 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "MODELS"
     ],
     "weeklyPick": true
-  },
-  {
-    "id": "sig-1790439805622-22nh",
-    "title": "Sam Altman Addresses UN Security Council on Global AI Governance and Human Agency",
-    "titleZh": "奥特曼联合国安理会发言：呼吁建立前沿AI国际协作监管",
-    "summary": "OpenAI CEO Sam Altman urged the UN Security Council to establish international oversight mechanisms and preserve human control over frontier AI systems.",
-    "summaryZh": "OpenAI首席执行官山姆·奥特曼在联合国安理会发表讲话，呼吁建立前沿AI国际监管机制并确保人类控制权。",
-    "whyItMatters": "While elevating frontier risk to the UN Security Council reflects the growing geopolitical stakes of superintelligence, the remarks remain high-level diplomatic rhetoric without binding non-proliferation or compute-monitoring treaties.",
-    "whyItMattersZh": "虽然将前沿模型安全推向安理会反映了超智能上升至最高地缘政治层面，但在缺乏算力追踪或实质性不扩散条约约束机制的前提下，该发言仍属于高规格的政策游说与外交表态。",
-    "source": {
-      "name": "OpenAI",
-      "url": "https://openai.com/index/sam-altman-un-security-council-remarks",
-      "domain": "openai.com"
-    },
-    "timestamp": "2026-09-26T16:23:25.622Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": false,
-    "tags": [
-      "GOVERNANCE"
-    ],
-    "weeklyPick": false
   }
 ];
