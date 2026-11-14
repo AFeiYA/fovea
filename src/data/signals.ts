@@ -2,6 +2,29 @@ import { SignalItem } from "@/types/signal";
 
 export const INITIAL_SIGNALS: SignalItem[] = [
   {
+    "id": "sig-1794662388147-0y5m",
+    "title": "The Value of Thinking: Zero-or-T Reasoning Architecture",
+    "titleZh": "思考的价值：零或T推理架构的范式转变",
+    "summary": "Explores a zero-or-T thinking paradigm where a model either answers from implicit thinking within a single forward pass without generating extra tokens or executes full explicit reasoning.",
+    "summaryZh": "探索了“零或T”思考范式，模型要么通过单次前向传递中的隐式思考直接回答而不生成额外Token，要么执行显式推理。",
+    "whyItMatters": "Moving beyond token-by-token explicit reasoning to dynamic zero-shot implicit reasoning alters inference-time compute scaling laws, a critical pillar for scalable Superintelligence.",
+    "whyItMattersZh": "超越逐字显式推理走向动态零样本隐式推理，改变了推理时计算扩展定律，这是实现可扩展超智能的关键支柱。",
+    "source": {
+      "name": "arXiv / HuggingFace",
+      "url": "https://arxiv.org/abs/2611.16961",
+      "domain": "arxiv.org"
+    },
+    "timestamp": "2026-11-14T13:19:48.147Z",
+    "dateLabel": "TODAY",
+    "dateLabelZh": "今日",
+    "isSignal": true,
+    "tags": [
+      "REASONING",
+      "MODELS"
+    ],
+    "weeklyPick": true
+  },
+  {
     "id": "sig-1794405965983-8zj0",
     "title": "Sparsity Breakthrough: Zeroing <0.05% Weights Matches Full Fine-Tuning",
     "titleZh": "稀疏性突破：仅修剪不到0.05%的权重即可媲美全量微调",
@@ -15,8 +38,8 @@ export const INITIAL_SIGNALS: SignalItem[] = [
       "domain": "arxiv.org"
     },
     "timestamp": "2026-11-11T14:06:05.983Z",
-    "dateLabel": "TODAY",
-    "dateLabelZh": "今日",
+    "dateLabel": "YESTERDAY",
+    "dateLabelZh": "昨日",
     "isSignal": true,
     "tags": [
       "MODELS",
@@ -432,28 +455,6 @@ export const INITIAL_SIGNALS: SignalItem[] = [
     "isSignal": true,
     "tags": [
       "REASONING",
-      "MODELS"
-    ],
-    "weeklyPick": true
-  },
-  {
-    "id": "sig-1790442721768-jvko",
-    "title": "Emergence of Parts-of-Speech Categories in Sparse AutoEncoder Latent Space",
-    "titleZh": "稀疏自编码器（SAE）潜空间中词性类别的涌现",
-    "summary": "This research investigates how morpho-syntactic information and parts-of-speech categories are structurally encoded by individual latents or feature groups within Sparse AutoEncoders.",
-    "summaryZh": "该研究探讨了形态句法信息和词性类别如何在稀疏自编码器的单个潜在变量或特征群组中进行结构化编码。",
-    "whyItMatters": "Interpreting internal representations via mechanistic interpretability is vital for unlocking the inner workings of frontier models and ensuring predictable control before SI transition.",
-    "whyItMattersZh": "通过机械可解释性解析内部表征，对于揭示前沿模型内部运作机制以及在实现超智能转型前确保可控性至关重要。",
-    "source": {
-      "name": "arXiv / HuggingFace",
-      "url": "https://arxiv.org/abs/2609.29362",
-      "domain": "arxiv.org"
-    },
-    "timestamp": "2026-09-26T17:12:01.768Z",
-    "dateLabel": "YESTERDAY",
-    "dateLabelZh": "昨日",
-    "isSignal": true,
-    "tags": [
       "MODELS"
     ],
     "weeklyPick": true
